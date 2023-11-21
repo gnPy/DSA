@@ -1,0 +1,200 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+	int data ; 
+	struct node *next ; 
+	}*head;
+
+void create(struct node **head, int n, int arr[]){
+	struct node *now , *first ; 
+
+	first = malloc(sizeof(struct node)) ; 
+	first->data = arr[0] ; 
+	first->next = NULL ; 
+	now = first ;
+	*head = first ;  
+
+	for( int i = 1 ; i< n ; i++){
+		struct node *ptr ; 
+		ptr = malloc(sizeof(struct node)) ; 
+		ptr->data = arr[i] ;  
+		ptr->next = NULL ; 
+		now->next = ptr ;
+		now = ptr ; 
+		}
+
+	}
+	
+void insert_begin(struct node **head, int a){
+	struct node *ptr ; 
+	ptr =malloc(sizeof(struct node)) ; 
+	ptr->data = a ; 
+	ptr->next = *head ; 
+	*head = ptr ; 
+	}
+
+void insert_end(struct node *head , int a){
+	struct node *ptr ; 
+	ptr = malloc(sizeof(struct node)) ; 
+	ptr = head ;
+	while(ptr != NULL && ptr->next != NULL){
+		ptr = ptr->next ; 
+		}
+
+	struct node *last ; 
+	last = malloc(sizeof(struct node)) ; 
+	ptr->next = last ; 
+	last->next = NULL ; 
+	last->data =a ; 
+	}
+
+void insert_between(struct node *head , int x , int pos){
+	struct node *ptr ; 
+	ptr =head; 
+	int i = 1 ; 
+	while(ptr!=NULL && i < pos){
+		i++;
+		ptr = ptr->next ; 
+		}
+
+	struct node *bet ;
+	bet = malloc(sizeof(struct node)) ; 
+	bet->data = x ; 
+	bet->next = ptr->next ; 
+	ptr->next = bet ; 
+	}
+
+void delete_front(struct node **head){
+	struct node *ptr ; 
+	ptr = *head ; 
+	*head = ptr->next ;
+	free(ptr) ;   
+	}
+ 
+void delete_end(struct node *head){
+	struct node *ptr ; 
+	ptr = head ; 
+	while(ptr->next->next != NULL){
+		ptr = ptr->next ; 
+		}
+	free(ptr->next) ; 
+	ptr->next = NULL ;  
+	}
+
+void search(struct node *head , int x){
+	struct node *ptr ; 
+	ptr = head ; 
+	int i = 1 ; 
+	while(ptr!= NULL){
+		if(ptr->data == x){
+			printf("NODE NUMBER : %d\n" , i) ;
+			break ;  
+			}
+		i++ ;
+		ptr = ptr->next ;  
+		}
+	if( ptr == NULL){
+		printf("ELEMENT NOT FOUND.\n") ; 
+		}
+	}
+
+void display(struct node *head){
+	struct node *ptr ; 
+	ptr = head ; 
+	while(ptr){
+		printf("%d " , ptr->data) ;
+		ptr =ptr->next ;  
+		}
+	printf("\n") ; 
+	}
+
+int choices(){
+	int ch ; 
+	printf("ENTER THE CHOICE : \n") ; 
+	printf("1  : DISPLAY.\n") ; 
+	printf("2  : CREATE.\n") ; 
+	printf("3  : INSERT AT FRONT.\n") ; 
+	printf("4  : INSERT AT END.\n") ; 
+	printf("5  : INSERT AFTER N-TH POS.\n") ; 
+	printf("6  : DELETE AT FRONT.\n" ) ; 
+	printf("7  : DELETE AT END.\n") ; 
+	printf("8  : SEARCH AN ELEMENT.\n") ; 
+	printf("9  : DELETE AN ELEMENT.\n") ;
+	printf("10 : EXIT.\n") ;  
+	scanf("%d" , &ch) ; 
+
+	switch(ch){
+		case 1:
+			display(head) ; 
+			break ; 
+	
+		case 2:
+			int n ; 
+			printf("ENTER NUMBER OF ELEMENTS : ") ; 
+			scanf("%d" , &n) ; 
+			int arr[n] ;
+			printf("ENTER THE ELEMENTS : ") ; 
+			for( int i = 0 ; i < n ; i++){
+				scanf("%d" ,&arr[i]) ; 
+				}
+			create(&head , n , arr) ; 
+			break ;
+ 
+		case 3:
+			int x;  
+			printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
+			scanf("%d" , &x) ; 
+			insert_begin(&head , x) ; 
+			break ;
+ 
+		case 4: 
+			int x ; 
+			printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
+			scanf("%d" , &x) ; 
+			insert_end(head , x) ; 
+			break ; 
+		
+		case 5: 
+			int x , pos ; 
+			printf("ENTER THE ELEMENT AS WELL AS POS AFTER WHICH TO BE INSERTED : ") ; 
+			scanf("%d %d" , &x , &pos) ; 
+			insert_between(head , x , pos) ; 
+			break ; 
+		
+		case 6:
+			delete_front(&head) ; 
+			break ; 
+	
+		case 7:
+			delete_end(head) ; 
+			break ; 
+		
+		case 8:
+			int x ; 
+			printf("ENTER ELEMENT TO BE SEARCHED : ") ; 
+			scanf("%d" , &x) ; 
+			search(head , x) ; 
+			break ; 
+		
+		case 10:
+			printf("THANK YOU.\n") ; 
+			return 0 ; 
+		
+		default:
+			printf("WRONG CHOICE.\n" ) ; 
+			break ;  
+			
+		}
+	return 1 ; 
+	}		
+
+
+int main(){
+	//struct node *head;
+	head = NULL ; 	
+	while(choices() != 0){
+		continue ;  
+		}   
+	}
+
