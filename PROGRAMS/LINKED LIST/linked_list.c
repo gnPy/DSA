@@ -108,7 +108,7 @@ void display(struct node *head){
 		}
 	printf("\n") ; 
 	}
-
+/*
 int choices(){
 	int ch ; 
 	printf("ENTER THE CHOICE : \n") ; 
@@ -188,7 +188,7 @@ int choices(){
 		}
 	return 1 ; 
 	}		
-
+*/
 
 int main(){
 	//struct node *head;
