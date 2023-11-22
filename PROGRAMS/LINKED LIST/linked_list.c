@@ -6,14 +6,16 @@ struct node {
 	struct node *next ; 
 	}*head;
 
-void create(struct node **head, int n, int arr[]){
+
+
+void create(int n, int arr[]){
 	struct node *now , *first ; 
 
 	first = malloc(sizeof(struct node)) ; 
 	first->data = arr[0] ; 
 	first->next = NULL ; 
 	now = first ;
-	*head = first ;  
+	head = first ;  
 
 	for( int i = 1 ; i< n ; i++){
 		struct node *ptr ; 
@@ -26,7 +28,7 @@ void create(struct node **head, int n, int arr[]){
 
 	}
 	
-void insert_begin(struct node *head, int a){
+void insert_begin(int a){
 	struct node *ptr ; 
 	ptr =malloc(sizeof(struct node)) ; 
 	ptr->data = a ; 
@@ -34,7 +36,7 @@ void insert_begin(struct node *head, int a){
 	head = ptr ; 
 	}
 
-void insert_end(struct node *head , int a){
+void insert_end(int a){
 	struct node *ptr ; 
 	ptr = malloc(sizeof(struct node)) ; 
 	ptr = head ;
@@ -49,7 +51,7 @@ void insert_end(struct node *head , int a){
 	last->data =a ; 
 	}
 
-void insert_between(struct node *head , int x , int pos){
+void insert_between(int x , int pos){
 	struct node *ptr ; 
 	ptr =head; 
 	int i = 1 ; 
@@ -65,14 +67,14 @@ void insert_between(struct node *head , int x , int pos){
 	ptr->next = bet ; 
 	}
 
-void delete_front(struct node *head){
+void delete_front(){
 	struct node *ptr ; 
 	ptr = head ; 
 	head = ptr->next ;
 	free(ptr) ;   
 	}
  
-void delete_end(struct node *head){
+void delete_end(){
 	struct node *ptr ; 
 	ptr = head ; 
 	while(ptr->next->next != NULL){
@@ -82,7 +84,7 @@ void delete_end(struct node *head){
 	ptr->next = NULL ;  
 	}
 
-void search(struct node *head , int x){
+void search(int x){
 	struct node *ptr ; 
 	ptr = head ; 
 	int i = 1 ; 
@@ -99,7 +101,7 @@ void search(struct node *head , int x){
 		}
 	}
 
-void display(struct node *head){
+void display(){
 	struct node *ptr ; 
 	ptr = head ; 
 	while(ptr){
@@ -131,7 +133,7 @@ int main(){
 		
 		switch(ch){
 			case 1:
-				display(head) ; 
+				display() ; 
 				break ; 
 		
 			case 2:
@@ -143,43 +145,43 @@ int main(){
 				for( int i = 0 ; i < n ; i++){
 					scanf("%d" ,&arr[i]) ; 
 					}
-				create(&head , n , arr) ; 
+				create(n , arr) ; 
 				break ;
 	 
 			case 3:
 
 				printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
 				scanf("%d" , &x) ; 
-				insert_begin(head , x) ; 
+				insert_begin(x) ; 
 				break ;
 	 
 			case 4: 
 
 				printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
 				scanf("%d" , &x) ; 
-				insert_end(head , x) ; 
+				insert_end(x) ; 
 				break ; 
 			
 			case 5: 
 
 				printf("ENTER THE ELEMENT AS WELL AS POS AFTER WHICH TO BE INSERTED : ") ; 
 				scanf("%d %d" , &x , &pos) ; 
-				insert_between(head , x , pos) ; 
+				insert_between(x , pos) ; 
 				break ; 
 			
 			case 6:
-				delete_front(head) ; 
+				delete_front() ; 
 				break ; 
 		
 			case 7:
-				delete_end(head) ; 
+				delete_end() ; 
 				break ; 
 			
 			case 8:
 
 				printf("ENTER ELEMENT TO BE SEARCHED : ") ; 
 				scanf("%d" , &x) ; 
-				search(head , x) ; 
+				search(x) ; 
 				break ; 
 			
 			case 0:
