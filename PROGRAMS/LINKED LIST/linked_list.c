@@ -26,12 +26,12 @@ void create(struct node **head, int n, int arr[]){
 
 	}
 	
-void insert_begin(struct node **head, int a){
+void insert_begin(struct node *head, int a){
 	struct node *ptr ; 
 	ptr =malloc(sizeof(struct node)) ; 
 	ptr->data = a ; 
-	ptr->next = *head ; 
-	*head = ptr ; 
+	ptr->next = head ; 
+	head = ptr ; 
 	}
 
 void insert_end(struct node *head , int a){
@@ -65,10 +65,10 @@ void insert_between(struct node *head , int x , int pos){
 	ptr->next = bet ; 
 	}
 
-void delete_front(struct node **head){
+void delete_front(struct node *head){
 	struct node *ptr ; 
-	ptr = *head ; 
-	*head = ptr->next ;
+	ptr = head ; 
+	head = ptr->next ;
 	free(ptr) ;   
 	}
  
@@ -108,93 +108,90 @@ void display(struct node *head){
 		}
 	printf("\n") ; 
 	}
-/*
-int choices(){
-	int ch ; 
-	printf("ENTER THE CHOICE : \n") ; 
-	printf("1  : DISPLAY.\n") ; 
-	printf("2  : CREATE.\n") ; 
-	printf("3  : INSERT AT FRONT.\n") ; 
-	printf("4  : INSERT AT END.\n") ; 
-	printf("5  : INSERT AFTER N-TH POS.\n") ; 
-	printf("6  : DELETE AT FRONT.\n" ) ; 
-	printf("7  : DELETE AT END.\n") ; 
-	printf("8  : SEARCH AN ELEMENT.\n") ; 
-	printf("9  : DELETE AN ELEMENT.\n") ;
-	printf("10 : EXIT.\n") ;  
-	scanf("%d" , &ch) ; 
-
-	switch(ch){
-		case 1:
-			display(head) ; 
-			break ; 
-	
-		case 2:
-			int n ; 
-			printf("ENTER NUMBER OF ELEMENTS : ") ; 
-			scanf("%d" , &n) ; 
-			int arr[n] ;
-			printf("ENTER THE ELEMENTS : ") ; 
-			for( int i = 0 ; i < n ; i++){
-				scanf("%d" ,&arr[i]) ; 
-				}
-			create(&head , n , arr) ; 
-			break ;
- 
-		case 3:
-			int x;  
-			printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
-			scanf("%d" , &x) ; 
-			insert_begin(&head , x) ; 
-			break ;
- 
-		case 4: 
-			int x ; 
-			printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
-			scanf("%d" , &x) ; 
-			insert_end(head , x) ; 
-			break ; 
-		
-		case 5: 
-			int x , pos ; 
-			printf("ENTER THE ELEMENT AS WELL AS POS AFTER WHICH TO BE INSERTED : ") ; 
-			scanf("%d %d" , &x , &pos) ; 
-			insert_between(head , x , pos) ; 
-			break ; 
-		
-		case 6:
-			delete_front(&head) ; 
-			break ; 
-	
-		case 7:
-			delete_end(head) ; 
-			break ; 
-		
-		case 8:
-			int x ; 
-			printf("ENTER ELEMENT TO BE SEARCHED : ") ; 
-			scanf("%d" , &x) ; 
-			search(head , x) ; 
-			break ; 
-		
-		case 10:
-			printf("THANK YOU.\n") ; 
-			return 0 ; 
-		
-		default:
-			printf("WRONG CHOICE.\n" ) ; 
-			break ;  
-			
-		}
-	return 1 ; 
-	}		
-*/
 
 int main(){
-	//struct node *head;
 	head = NULL ; 	
-	while(choices() != 0){
-		continue ;  
-		}   
+	int ch = 1  , n , x , pos;
+	int arr[n] ; 
+	
+	while(ch){ 
+		printf("MENU\n") ; 
+		printf("1  : DISPLAY.\n") ; 
+		printf("2  : CREATE.\n") ; 
+		printf("3  : INSERT AT FRONT.\n") ; 
+		printf("4  : INSERT AT END.\n") ; 
+		printf("5  : INSERT AFTER N-TH POS.\n") ; 
+		printf("6  : DELETE AT FRONT.\n" ) ; 
+		printf("7  : DELETE AT END.\n") ; 
+		printf("8  : SEARCH AN ELEMENT.\n") ; 
+		printf("9  : DELETE AN ELEMENT.\n") ;
+		printf("0 : EXIT.\n") ;  
+		printf("ENTER THE CHOICE : ") ; 
+		scanf("%d" , &ch) ; 
+		
+		switch(ch){
+			case 1:
+				display(head) ; 
+				break ; 
+		
+			case 2:
+
+				printf("ENTER NUMBER OF ELEMENTS : ") ; 
+				scanf("%d" , &n) ; 
+
+				printf("ENTER THE ELEMENTS : ") ; 
+				for( int i = 0 ; i < n ; i++){
+					scanf("%d" ,&arr[i]) ; 
+					}
+				create(&head , n , arr) ; 
+				break ;
+	 
+			case 3:
+
+				printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
+				scanf("%d" , &x) ; 
+				insert_begin(head , x) ; 
+				break ;
+	 
+			case 4: 
+
+				printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
+				scanf("%d" , &x) ; 
+				insert_end(head , x) ; 
+				break ; 
+			
+			case 5: 
+
+				printf("ENTER THE ELEMENT AS WELL AS POS AFTER WHICH TO BE INSERTED : ") ; 
+				scanf("%d %d" , &x , &pos) ; 
+				insert_between(head , x , pos) ; 
+				break ; 
+			
+			case 6:
+				delete_front(head) ; 
+				break ; 
+		
+			case 7:
+				delete_end(head) ; 
+				break ; 
+			
+			case 8:
+
+				printf("ENTER ELEMENT TO BE SEARCHED : ") ; 
+				scanf("%d" , &x) ; 
+				search(head , x) ; 
+				break ; 
+			
+			case 0:
+				printf("THANK YOU.\n") ; 
+				break ; 
+			
+			default:
+				printf("WRONG CHOICE.\n" ) ; 
+				break ;  
+				
+			}
+		printf("\n") ; 
+		}
 	}
 
