@@ -1,17 +1,24 @@
 #include <stdio.h>
 
-int linearSearch(int *A ,int n ,  int x){
-	for( int i = 0 ; i < n ; i++){
-		if( A[i] == x){
-			return i ; 
+int binarySearch(int *A , int l , int h , int x){
+	if(l<=h){
+		int mid = (l+h)/2 ; 
+		if( A[mid] == x){
+			return mid ; 
+			}
+		else if(A[mid] > x){
+			return binarySearch(A ,l , mid-1 ,x) ; 
+			}
+		else{
+			return binarySearch(A ,mid+1 , h , x) ; 
 			}
 		}
-	return -1 ;
+	return -1 ; 
 	}
 
 int main(){
 	int n , i , x ;
-	printf("ENTER THE SIZE OF ARRAY : ") ;
+	printf("ENTER THE SIZE OF ARRAY  : ") ;
 	scanf("%d" , &n) ; 
 	
 	int arr[n] ; 
@@ -23,7 +30,7 @@ int main(){
 	printf("ENTER THE ELEMENT TO BE SEARCHED : ") ; 
 	scanf("%d" , &x) ;
 
-	int index = linearSearch(arr, n , x) ;
+	int index = binarySearch(arr, 0 ,  n-1 , x) ;
 	if( index == -1){
 		printf("ELEMENT NOT FOUND.\n") ; 
 		}
