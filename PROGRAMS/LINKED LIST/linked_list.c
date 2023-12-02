@@ -6,8 +6,6 @@ struct node {
 	struct node *next ; 
 	}*head;
 
-
-
 void create(int n, int arr[]){
 	struct node *now , *first ; 
 
