@@ -33,7 +33,6 @@ int main(){
     printf("ENTER ARRAY ELEMENTS : ") ; 
     for(i = 0 ; i < n ; i++){
         scanf("%d" , &arr[i]) ; 
-    }
-    
+    }    
     printf("SECOND LARGEST ELEMENT IS : %d\n" , bubbleSort(arr , n)) ;
 }
