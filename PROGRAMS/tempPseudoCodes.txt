@@ -202,3 +202,439 @@ PROCEDURE DISPLAY ACCEPTING HEAD
 END PROCEDURE
 
 END PROGRAM
+
+PROCEDURE MERGE_SORT ACCEPTING ARRAY, START, END
+    IF START < END
+        SET MID = (START + END) / 2
+        CALL MERGE_SORT(ARRAY, START, MID)
+        CALL MERGE_SORT(ARRAY, MID + 1, END)
+        CALL MERGE(ARRAY, START, MID, END)
+    END IF
+END PROCEDURE
+
+PROCEDURE MERGE ACCEPTING ARRAY, START, MID, END
+    SET LEFT_SIZE = MID - START + 1
+    SET RIGHT_SIZE = END - MID
+    CREATE LEFT_ARRAY[LEFT_SIZE]
+    CREATE RIGHT_ARRAY[RIGHT_SIZE]
+    
+    FOR i = 0 TO LEFT_SIZE - 1
+        SET LEFT_ARRAY[i] = ARRAY[START + i]
+    END FOR
+    
+    FOR j = 0 TO RIGHT_SIZE - 1
+        SET RIGHT_ARRAY[j] = ARRAY[MID + 1 + j]
+    END FOR
+    
+    SET i = 0
+    SET j = 0
+    SET k = START
+    
+    WHILE i < LEFT_SIZE AND j < RIGHT_SIZE
+        IF LEFT_ARRAY[i] <= RIGHT_ARRAY[j]
+            SET ARRAY[k] = LEFT_ARRAY[i]
+            INCREMENT i
+        ELSE
+            SET ARRAY[k] = RIGHT_ARRAY[j]
+            INCREMENT j
+        END IF
+        INCREMENT k
+    END WHILE
+    
+    WHILE i < LEFT_SIZE
+        SET ARRAY[k] = LEFT_ARRAY[i]
+        INCREMENT i
+        INCREMENT k
+    END WHILE
+    
+    WHILE j < RIGHT_SIZE
+        SET ARRAY[k] = RIGHT_ARRAY[j]
+        INCREMENT j
+        INCREMENT k
+    END WHILE
+END PROCEDURE
+
+END PROGRAM
+
+FUNCTION bubbleSort(A: array of integers, n: integer) -> integer
+    FOR i = 0 TO 1
+        comp = 0
+        FOR j = 0 TO n - i - 1
+            IF A[j] > A[j + 1]
+                swap(A[j], A[j + 1])
+                comp = comp + 1
+            END IF
+        END FOR
+        IF comp = 0
+            BREAK
+        END IF
+    END FOR
+    RETURN A[n - 2]
+END FUNCTION
+
+FUNCTION swap(x: pointer to integer, y: pointer to integer)
+    temp = *x
+    *x = *y
+    *y = temp
+END FUNCTION
+
+FUNCTION main()
+    DECLARE n, i, x, m: integers
+    PRINT "ENTER THE NUMBER OF ELEMENTS: "
+    READ n
+
+    DECLARE arr[n]: array of integers
+    PRINT "ENTER ARRAY ELEMENTS: "
+    FOR i = 0 TO n - 1
+        READ arr[i]
+    END FOR
+
+    PRINT "SECOND LARGEST ELEMENT IS: ", bubbleSort(arr, n)
+END FUNCTION
+
+STRUCT term
+    DECLARE exp, coeff: integers
+END STRUCT
+
+STRUCT poly
+    DECLARE n: integer
+    DECLARE arr[500]: array of term
+END STRUCT
+
+FUNCTION main()
+    DECLARE p1, p2, p3: poly
+    SET p3.n = 0
+
+    PRINT "ENTER THE NUMBER OF TERMS IN P1: "
+    READ p1.n
+
+    FOR i = 0 TO p1.n - 1
+        PRINT "ENTER THE COEFF AS WELL AS EXP: "
+        READ p1.arr[i].coeff, p1.arr[i].exp
+    END FOR
+
+    PRINT "ENTER THE NUMBER OF TERMS IN P2: "
+    READ p2.n
+
+    FOR i = 0 TO p2.n - 1
+        PRINT "ENTER THE COEFF AS WELL AS EXP: "
+        READ p2.arr[i].coeff, p2.arr[i].exp
+    END FOR
+
+    PRINT "FIRST: "
+    FOR i = 0 TO p1.n - 1
+        PRINT p1.arr[i].coeff, "x^", p1.arr[i].exp
+        IF i == p1.n - 1
+            PRINT " "
+        ELSE
+            PRINT " + "
+        END IF
+    END FOR
+
+    PRINT "SECOND: "
+    FOR i = 0 TO p2.n - 1
+        PRINT p2.arr[i].coeff, "x^", p2.arr[i].exp
+        IF i == p2.n - 1
+            PRINT " "
+        ELSE
+            PRINT " + "
+        END IF
+    END FOR
+
+    DECLARE i, j, k: integers
+    SET i = 0
+    SET j = 0
+    SET k = 0
+
+    WHILE i < p1.n AND j < p2.n
+        IF p1.arr[i].exp == p2.arr[j].exp
+            SET p3.arr[k].exp = p1.arr[i].exp
+            SET p3.arr[k].coeff = p1.arr[i].coeff + p2.arr[j].coeff
+            INCREMENT i
+            INCREMENT j
+        ELSE IF p1.arr[i].exp < p2.arr[j].exp
+            SET p3.arr[k].exp = p1.arr[i].exp
+            SET p3.arr[k].coeff = p1.arr[i].coeff
+            INCREMENT i
+        ELSE
+            SET p3.arr[k].exp = p2.arr[j].exp
+            SET p3.arr[k].coeff = p2.arr[j].coeff
+            INCREMENT j
+        END IF
+        INCREMENT k
+        INCREMENT p3.n
+    END WHILE
+
+    FOR i = i TO p1.n - 1
+        SET p3.arr[k].exp = p1.arr[i].exp
+        SET p3.arr[k].coeff = p1.arr[i].coeff
+        INCREMENT k
+        INCREMENT p3.n
+    END FOR
+
+    FOR j = j TO p2.n - 1
+        SET p3.arr[k].exp = p2.arr[j].exp
+        SET p3.arr[k].coeff = p2.arr[j].coeff
+        INCREMENT k
+        INCREMENT p3.n
+    END FOR
+
+    PRINT "SUM: "
+    FOR i = 0 TO p3.n - 1
+        PRINT p3.arr[i].coeff, "x^", p3.arr[i].exp
+        IF i == p3.n - 1
+            PRINT "\n"
+        ELSE
+            PRINT " + "
+        END IF
+    END FOR
+END FUNCTION
+
+STRUCT queue
+    DECLARE size, rear, front: integers
+    DECLARE arr[100]: array of integers
+END STRUCT
+
+FUNCTION isFull(q: pointer to queue) -> integer
+    RETURN (q->rear == q->size - 1)
+
+FUNCTION isEmpty(q: pointer to queue) -> integer
+    RETURN (q->front == q->rear)
+
+PROCEDURE enqueue(q: pointer to queue, n: integer)
+    IF isFull(q) THEN
+        PRINT "QUEUE IS FULL."
+    ELSE
+        q->arr[++(q->rear)] = n
+
+PROCEDURE dequeue(q: pointer to queue)
+    IF isEmpty(q) THEN
+        PRINT "THE QUEUE IS EMPTY."
+    ELSE
+        PRINT q->arr[++(q->front)]
+
+PROCEDURE display(q: pointer to queue)
+    IF isEmpty(q) THEN
+        PRINT "QUEUE IS EMPTY."
+    ELSE
+        FOR i = q->front + 1 TO q->rear
+            PRINT q->arr[i]
+        END FOR
+
+PROCEDURE displayMenu()
+    PRINT "------ MENU ------"
+    PRINT "1. ENQUEUE"
+    PRINT "2. DEQUEUE"
+    PRINT "3. DISPLAY"
+    PRINT "4. EXIT"
+    PRINT "-------------------"
+
+FUNCTION main()
+    DECLARE q: queue
+    SET q.front = q.rear = -1
+
+    PRINT "ENTER THE SIZE OF QUEUE : "
+    READ q.size
+
+    DECLARE choice, n: integers
+
+    WHILE choice != 4
+        displayMenu()
+        PRINT "ENTER CHOICE : "
+        READ choice
+
+        SWITCH choice
+            CASE 1
+                PRINT "ENTER THE ELEMENT : "
+                READ n
+                enqueue(&q, n)
+            CASE 2
+                dequeue(&q)
+            CASE 3
+                display(&q)
+            CASE 4
+                PRINT "EXITING."
+            DEFAULT
+                PRINT "WRONG CHOICE."
+        END SWITCH
+    END WHILE
+END FUNCTION
+
+FUNCTION binarySearch(A: array of integers, l: integer, h: integer, x: integer) -> integer
+    IF l <= h THEN
+        DECLARE mid: integer
+        SET mid = (l + h) / 2
+        IF A[mid] == x THEN
+            RETURN mid
+        ELSE IF A[mid] > x THEN
+            RETURN binarySearch(A, l, mid - 1, x)
+        ELSE
+            RETURN binarySearch(A, mid + 1, h, x)
+        END IF
+    END IF
+    RETURN -1
+END FUNCTION
+
+
+
+FUNCTION main()
+    DECLARE n, i, x: integers
+    PRINT "ENTER THE SIZE OF ARRAY: "
+    READ n
+
+    DECLARE arr[n]: array of integers
+    PRINT "ENTER THE ARRAY ELEMENTS: "
+    FOR i = 0 TO n - 1
+        READ arr[i]
+    END FOR
+
+    PRINT "ENTER THE ELEMENT TO BE SEARCHED: "
+    READ x
+
+    DECLARE index: integer
+    SET index = binarySearch(arr, 0, n - 1, x)
+    IF index == -1 THEN
+        PRINT "ELEMENT NOT FOUND."
+    ELSE
+        PRINT "THE POSITION IS: ", index
+    END IF
+END FUNCTION
+
+
+
+
+
+PROCEDURE linearSearch(A: pointer to integer, n: integer, x: integer) -> integer
+    FOR i = 0 TO n - 1
+        IF A[i] == x THEN
+            RETURN i
+        END IF
+    END FOR
+    RETURN -1
+END PROCEDURE
+
+PROCEDURE main()
+    DECLARE n, i, x: integers
+    PRINT "ENTER THE SIZE OF ARRAY: "
+    READ n
+
+    DECLARE arr[n]: array of integers
+    PRINT "ENTER THE ARRAY ELEMENTS: "
+    FOR i = 0 TO n - 1
+        READ arr[i]
+    END FOR
+
+    PRINT "ENTER THE ELEMENT TO BE SEARCHED: "
+    READ x
+
+    DECLARE index: integer
+    SET index = linearSearch(arr, n, x)
+    IF index == -1 THEN
+        PRINT "ELEMENT NOT FOUND."
+    ELSE
+        PRINT "THE POSITION IS: ", index
+    END IF
+END PROCEDURE
+
+FUNCTION main()
+    DECLARE ascii[129]: array of integers
+    SET all elements of ascii to 0
+
+    DECLARE str[1000]: array of characters
+    PRINT "ENTER THE STRING: "
+    READ str
+
+    FOR i = 0 TO length of str - 1
+        INCREMENT ascii[(int)str[i]]
+
+    PRINT "REPEATED ELEMENTS ARE: "
+    FOR i = 0 TO 129 - 1
+        IF ascii[i] > 1 AND i != 32
+            PRINT i AS CHARACTER, "-", ascii[i]
+        END IF
+    END FOR
+END FUNCTION
+
+FUNCTION swap(x: pointer to integer, y: pointer to integer)
+    DECLARE temp: integer
+    SET temp = *x
+    *x = *y
+    *y = temp
+END FUNCTION
+
+FUNCTION bubbleSort(A: pointer to integer, n: integer) -> integer
+    DECLARE i, j, comp: integers
+    FOR i = 0 TO 2
+        SET comp = 0
+        FOR j = 0 TO n - i - 1
+            IF A[j] > A[j + 1] THEN
+                CALL swap(&A[j], &A[j + 1])
+                INCREMENT comp
+            END IF
+        END FOR
+        IF comp == 0 THEN
+            BREAK
+        END IF
+    END FOR
+    RETURN A[n - 2]
+END FUNCTION
+
+FUNCTION main()
+    DECLARE n, i, x, m: integers
+
+    PRINT "ENTER THE NUMBER OF ELEMENTS: "
+    READ n
+
+    DECLARE arr[n]: array of integers
+    PRINT "ENTER ARRAY ELEMENTS: "
+    FOR i = 0 TO n - 1
+        READ arr[i]
+    END FOR
+
+    PRINT "SECOND LARGEST ELEMENT IS: ", bubbleSort(arr, n)
+END FUNCTION
+
+PROCEDURE swap(x: pointer to integer, y: pointer to integer)
+    DECLARE temp: integer
+    SET temp = *x
+    *x = *y
+    *y = temp
+END PROCEDURE
+
+PROCEDURE bubbleSort(A: pointer to integer, n: integer)
+    DECLARE i, j, comp: integers
+    FOR i = 0 TO n - 1
+        SET comp = 0
+        FOR j = 0 TO n - i - 1
+            IF A[j] > A[j + 1] THEN
+                CALL swap(&A[j], &A[j + 1])
+                INCREMENT comp
+            END IF
+        END FOR
+        IF comp == 0 THEN
+            BREAK
+        END IF
+    END FOR
+END PROCEDURE
+
+PROCEDURE main()
+    DECLARE n, i, x: integers
+    PRINT "ENTER THE SIZE OF ARRAY: "
+    READ n
+
+    DECLARE arr[n]: array of integers
+    PRINT "ENTER THE ARRAY ELEMENTS: "
+    FOR i = 0 TO n - 1
+        READ arr[i]
+    END FOR
+
+    CALL bubbleSort(arr, n)
+
+    PRINT "THE SORTED ARRAY IS: "
+    FOR i = 0 TO n - 1
+        PRINT arr[i]
+    END FOR
+END PROCEDURE
+
+
+
