@@ -34,7 +34,7 @@ int convertToThreeTuple(int r , int c, int A[r][c] , int C[101][3]){
     }
     C[0][0] = r ; 
     C[0][1] = c ; 
-    C[0][2] = --k ; 
+    C[0][2] = k ; 
     return k ; 
 
 }
