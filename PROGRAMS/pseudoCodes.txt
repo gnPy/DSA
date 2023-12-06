@@ -1,7 +1,7 @@
 POLYNOMIAL ADDITION
 
 STRUCT term
-    DECLARE exp, coeff: integer
+    DECLARE exp, coeff
 END STRUCT
 
 STRUCT poly
