@@ -576,7 +576,86 @@ FUNCTION main()
     CALL display(k1, 3, C)
 END FUNCTION
 #############################################################
-SPARSE MATTRIX ADDITION
+MERGE SORT
+FUNCTION merge(arr: array of integers, l: integer, m: integer, r: integer)
+    DECLARE i, j, k: integers
+    DECLARE n1, n2: integers
+
+    SET n1 = m - l + 1
+    SET n2 = r - m
+
+    DECLARE L[n1]: array of integers
+    DECLARE R[n2]: array of integers
+
+    FOR i = 0 TO n1 - 1
+        SET L[i] = arr[l + i]
+    END FOR
+
+    FOR j = 0 TO n2 - 1
+        SET R[j] = arr[m + 1 + j]
+    END FOR
+
+    SET i = 0
+    SET j = 0
+    SET k = l
+
+    WHILE i < n1 AND j < n2
+        IF L[i] <= R[j] THEN
+            SET arr[k] = L[i]
+            INCREMENT i
+        ELSE
+            SET arr[k] = R[j]
+            INCREMENT j
+        END IF
+        INCREMENT k
+    END WHILE
+
+    WHILE i < n1
+        SET arr[k] = L[i]
+        INCREMENT i
+        INCREMENT k
+    END WHILE
+
+    WHILE j < n2
+        SET arr[k] = R[j]
+        INCREMENT j
+        INCREMENT k
+    END WHILE
+END FUNCTION
+
+FUNCTION mergeSort(arr: array of integers, l: integer, r: integer)
+    IF l < r THEN
+        DECLARE m: integer
+        SET m = (l+r)/2 
+
+        CALL mergeSort(arr, l, m)
+        CALL mergeSort(arr, m + 1, r)
+
+        CALL merge(arr, l, m, r)
+    END IF
+END FUNCTION
+
+FUNCTION main()
+    DECLARE n: integer
+    PRINT "ENTER THE SIZE OF ARRAY: "
+    READ n
+
+    DECLARE arr[n]: array of integers
+    PRINT "ENTER THE ELEMENTS OF ARRAY: "
+    FOR i = 0 TO n - 1
+        READ arr[i]
+    END FOR
+
+    CALL mergeSort(arr, 0, n - 1)
+
+    PRINT "SORTED ARRAY: "
+    FOR i = 0 TO n - 1
+        PRINT arr[i]
+    END FOR
+END FUNCTION
+
+
+#################################################################
 
 
 
