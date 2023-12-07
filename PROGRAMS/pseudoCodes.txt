@@ -11,6 +11,7 @@ END STRUCT
 
 FUNCTION main()
     DECLARE poly p1, p2, p3
+    DECLARE INT i, j, k
     SET p3.n = 0
 
     PRINT "ENTER THE NUMBER OF TERMS IN P1: "
@@ -49,7 +50,7 @@ FUNCTION main()
         END IF
     END FOR
 
-    DECLARE i, j, k: integers
+    
     SET i = 0
     SET j = 0
     SET k = 0
