@@ -102,8 +102,8 @@ END FUNCTION
 QUEUE
 
 STRUCT queue
-    DECLARE size, rear, front: integers
-    DECLARE arr[100]: array of integers
+    DECLARE INT size, rear, front
+    DECLARE arr[100]
 END STRUCT
 
 FUNCTION isFull(q: pointer to queue) -> integer
