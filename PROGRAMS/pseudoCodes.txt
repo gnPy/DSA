@@ -1,16 +1,16 @@
 POLYNOMIAL ADDITION
 
 STRUCT term
-    DECLARE exp, coeff
+    DECLARE INT exp, coeff
 END STRUCT
 
 STRUCT poly
-    DECLARE n: integer
-    DECLARE arr[500]: array of term
+    DECLARE INT n
+    DECLARE arr[500]
 END STRUCT
 
 FUNCTION main()
-    DECLARE p1, p2, p3: poly
+    DECLARE poly p1, p2, p3
     SET p3.n = 0
 
     PRINT "ENTER THE NUMBER OF TERMS IN P1: "
