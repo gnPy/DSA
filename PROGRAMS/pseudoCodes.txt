@@ -516,6 +516,67 @@ PROCEDURE main()
     END WHILE
 END PROCEDURE
 ##########################################################
+SPARSE MATRIX REPRESENTATION
+FUNCTION insertElements(m: integer, n: integer, A: 2D array of integers)
+    PRINT "ENTER THE ELEMENTS"
+    FOR i = 0 TO m - 1
+        PRINT "ENTER THE ROW ", i + 1, ":"
+        FOR j = 0 TO n - 1
+            READ A[i][j]
+        END FOR
+    END FOR
+END FUNCTION
+
+FUNCTION display(m: integer, n: integer, A: 2D array of integers)
+    PRINT "THE SPARSE MATRIX IS:"
+    FOR i = 0 TO m - 1
+        FOR j = 0 TO n - 1
+            PRINT A[i][j], " "
+        END FOR
+        PRINT "\n"
+    END FOR
+END FUNCTION
+
+FUNCTION convertToThreeTuple(r: integer, c: integer, A: 2D array of integers, C: 2D array of integers) -> integer
+    DECLARE k: integer
+    SET k = 1
+
+    FOR i = 0 TO r - 1
+        FOR j = 0 TO c - 1
+            IF A[i][j] != 0 THEN
+                SET C[k][0] = i
+                SET C[k][1] = j
+                SET C[k][2] = A[i][j]
+                INCREMENT k
+            END IF
+        END FOR
+    END FOR
+
+    SET C[0][0] = r
+    SET C[0][1] = c
+    SET C[0][2] = k - 1
+
+    RETURN k
+END FUNCTION
+
+FUNCTION main()
+    DECLARE r, c: integers
+    PRINT "ENTER THE ROW AND COLUMN OF MATRICES:"
+    READ r, c
+
+    DECLARE A[r][c], C[r * c][3]
+
+    CALL insertElements(r, c, A)
+
+    CALL display(r, c, A)
+
+    DECLARE k1: integer
+    SET k1 = convertToThreeTuple(r, c, A, C)
+
+    CALL display(k1, 3, C)
+END FUNCTION
+#############################################################
+SPARSE MATTRIX ADDITION
 
 
 
