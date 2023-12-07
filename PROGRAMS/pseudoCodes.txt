@@ -177,7 +177,7 @@ END FUNCTION
 BINARYSEARCH
 FUNCTION binarySearch(A: array of integers, l: integer, h: integer, x: integer) -> integer
     IF l <= h THEN
-        DECLARE mid: integer
+        DECLARE INT mid
         SET mid = (l + h) / 2
         IF A[mid] == x THEN
             RETURN mid
@@ -191,11 +191,11 @@ FUNCTION binarySearch(A: array of integers, l: integer, h: integer, x: integer) 
 END FUNCTION
 
 FUNCTION main()
-    DECLARE n, i, x: integers
+    DECLARE INT n, i, x
     PRINT "ENTER THE SIZE OF ARRAY: "
     READ n
 
-    DECLARE arr[n]: array of integers
+    DECLARE arr[n]
     PRINT "ENTER THE ARRAY ELEMENTS: "
     FOR i = 0 TO n - 1
         READ arr[i]
@@ -204,7 +204,7 @@ FUNCTION main()
     PRINT "ENTER THE ELEMENT TO BE SEARCHED: "
     READ x
 
-    DECLARE index: integer
+    DECLARE INT index
     SET index = binarySearch(arr, 0, n - 1, x)
     IF index == -1 THEN
         PRINT "ELEMENT NOT FOUND."
