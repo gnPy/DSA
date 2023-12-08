@@ -656,6 +656,71 @@ END FUNCTION
 
 
 #################################################################
+INFIX TO POSTFIX
+
+FUNCTION isOperator(ch: character) -> integer
+    IF ch is '+' OR ch is '-' OR ch is '*' OR ch is '/'
+        RETURN 1
+    ELSE
+        RETURN 0
+
+FUNCTION Precedence(ch: character) -> integer
+    IF ch is '*' OR ch is '/'
+        RETURN 2
+    ELSE IF ch is '+' OR ch is '-'
+        RETURN 1
+    ELSE
+        RETURN 0
+
+PROCEDURE infixToPostfix(infix: array of characters, postfix: array of characters)
+    DECLARE stack: array of characters
+    DECLARE top: integer
+    DECLARE i, j: integers
+
+    top = -1
+    j = 0
+
+    FOR i = 0 TO length of infix - 1
+        IF infix[i] is '('
+            stack[++top] = infix[i]
+        ELSE IF infix[i] is ')'
+            WHILE stack[top] is not '('
+                postfix[j++] = stack[top--]
+            END WHILE
+            top--
+        ELSE IF isOperator(infix[i])
+            WHILE top is not -1 AND Precedence(stack[top]) >= Precedence(infix[i])
+                postfix[j++] = stack[top--]
+            END WHILE
+            stack[++top] = infix[i]
+        ELSE
+            postfix[j++] = infix[i]
+        END IF
+    END FOR
+
+    WHILE top is not -1
+        postfix[j++] = stack[top--]
+    END WHILE
+
+    postfix[j] = '\0'
+
+END PROCEDURE
+
+PROCEDURE main()
+    DECLARE infix: array of characters
+    DECLARE postfix: array of characters
+
+    PRINT "Enter the infix expression: "
+    READ infix
+
+    CALL infixToPostfix(infix, postfix)
+
+    PRINT "The postfix expression is: " + postfix
+
+END PROCEDURE
+
+##################################################################
+POSTFIX EVALUATION
 
 
 
