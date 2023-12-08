@@ -722,6 +722,64 @@ END PROCEDURE
 ##################################################################
 POSTFIX EVALUATION
 
+FUNCTION push(x: integer)
+    stack[++top] = x
+
+FUNCTION pop() -> integer
+    RETURN stack[top--]
+
+FUNCTION isOperator(ch: character) -> integer
+    IF ch is '+' OR ch is '-' OR ch is '*' OR ch is '/'
+        RETURN 1
+    ELSE
+        RETURN 0
+
+FUNCTION Precedence(ch: character) -> integer
+    IF ch is '*' OR ch is '/'
+        RETURN 2
+    ELSE IF ch is '+' OR ch is '-'
+        RETURN 1
+    ELSE
+        RETURN 0
+
+FUNCTION operation(a: integer, b: integer, ch: character) -> integer
+    IF ch is '+'
+        RETURN a + b
+    ELSE IF ch is '-'
+        RETURN a - b
+    ELSE IF ch is '*'
+        RETURN a * b
+    ELSE IF ch is '/'
+        RETURN a / b
+
+FUNCTION postfixEval(postfix: array of characters) -> integer
+    DECLARE res: integer
+    FOR i = 0 TO length of postfix - 1
+        IF isOperator(postfix[i]) is 0
+            push(postfix[i] - '0')
+        ELSE
+            DECLARE a: integer = pop()
+            DECLARE b: integer = pop()
+            res = operation(b, a, postfix[i])
+            push(res)
+        END IF
+    END FOR
+    RETURN res
+
+FUNCTION main()
+    DECLARE postfix: array of characters
+    PRINT "Enter the postfix expression: "
+    READ postfix
+    DECLARE res: integer = postfixEval(postfix)
+    PRINT "The result is: " + res
+    RETURN 0
+END FUNCTION
+
+##################################################################
+
+
+
+
 
 
 
