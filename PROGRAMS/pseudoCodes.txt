@@ -6,10 +6,10 @@ END STRUCT
 
 STRUCT poly
     DECLARE INT n
-    DECLARE arr[500]
+    DECLARE term arr[500]
 END STRUCT
 
-FUNCTION main()
+PROCEDURE main()
     DECLARE poly p1, p2, p3
     DECLARE INT i, j, k
     SET p3.n = 0
@@ -49,7 +49,6 @@ FUNCTION main()
             PRINT " + "
         END IF
     END FOR
-
     
     SET i = 0
     SET j = 0
@@ -59,33 +58,33 @@ FUNCTION main()
         IF p1.arr[i].exp == p2.arr[j].exp
             SET p3.arr[k].exp = p1.arr[i].exp
             SET p3.arr[k].coeff = p1.arr[i].coeff + p2.arr[j].coeff
-            INCREMENT i
-            INCREMENT j
+            INCREMENT i BY 1
+            INCREMENT j BY 1
         ELSE IF p1.arr[i].exp < p2.arr[j].exp
             SET p3.arr[k].exp = p1.arr[i].exp
             SET p3.arr[k].coeff = p1.arr[i].coeff
-            INCREMENT i
+            INCREMENT i By 1
         ELSE
             SET p3.arr[k].exp = p2.arr[j].exp
             SET p3.arr[k].coeff = p2.arr[j].coeff
-            INCREMENT j
+            INCREMENT j BY 1
         END IF
-        INCREMENT k
-        INCREMENT p3.n
+        INCREMENT k BY 1
+        INCREMENT p3.n BY 1
     END WHILE
 
     FOR i = i TO p1.n - 1
         SET p3.arr[k].exp = p1.arr[i].exp
         SET p3.arr[k].coeff = p1.arr[i].coeff
-        INCREMENT k
-        INCREMENT p3.n
+        INCREMENT k BY 1
+        INCREMENT p3.n BY 1
     END FOR
 
     FOR j = j TO p2.n - 1
         SET p3.arr[k].exp = p2.arr[j].exp
         SET p3.arr[k].coeff = p2.arr[j].coeff
-        INCREMENT k
-        INCREMENT p3.n
+        INCREMENT k BY 1
+        INCREMENT p3.n BY 1
     END FOR
 
     PRINT "SUM: "
@@ -97,7 +96,7 @@ FUNCTION main()
             PRINT " + "
         END IF
     END FOR
-END FUNCTION
+END PROCEDURE
 
 #########################################################
 QUEUE
@@ -173,12 +172,15 @@ FUNCTION main()
 END FUNCTION
 
 
-##########################################################################
-BINARYSEARCH
-FUNCTION binarySearch(A: array of integers, l: integer, h: integer, x: integer) -> integer
+
+########################################################################
+BINARY SEARCH
+
+PROCEDURE binarySearch(int A[], INT l, INT h , INT x) 
     IF l <= h THEN
         DECLARE INT mid
         SET mid = (l + h) / 2
+
         IF A[mid] == x THEN
             RETURN mid
         ELSE IF A[mid] > x THEN
@@ -187,15 +189,16 @@ FUNCTION binarySearch(A: array of integers, l: integer, h: integer, x: integer) 
             RETURN binarySearch(A, mid + 1, h, x)
         END IF
     END IF
-    RETURN -1
-END FUNCTION
 
-FUNCTION main()
+    RETURN -1
+END PROCEDURE
+
+PROCEDURE main()
     DECLARE INT n, i, x
     PRINT "ENTER THE SIZE OF ARRAY: "
     READ n
 
-    DECLARE arr[n]
+    DECLARE INT arr[n]
     PRINT "ENTER THE ARRAY ELEMENTS: "
     FOR i = 0 TO n - 1
         READ arr[i]
@@ -206,16 +209,18 @@ FUNCTION main()
 
     DECLARE INT index
     SET index = binarySearch(arr, 0, n - 1, x)
+
     IF index == -1 THEN
         PRINT "ELEMENT NOT FOUND."
     ELSE
         PRINT "THE POSITION IS: ", index
     END IF
-END FUNCTION
+END PROCEDURE
+
 ########################################################################
 LINEARSEARCH
 
-PROCEDURE linearSearch(A: pointer to integer, n: integer, x: integer) -> integer
+PROCEDURE linearSearch(INT n , INT x, INT A[n])
     FOR i = 0 TO n - 1
         IF A[i] == x THEN
             RETURN i
@@ -225,11 +230,11 @@ PROCEDURE linearSearch(A: pointer to integer, n: integer, x: integer) -> integer
 END PROCEDURE
 
 PROCEDURE main()
-    DECLARE n, i, x: integers
+    DECLARE INT n, i, x
     PRINT "ENTER THE SIZE OF ARRAY: "
     READ n
 
-    DECLARE arr[n]: array of integers
+    DECLARE INT arr[n]
     PRINT "ENTER THE ARRAY ELEMENTS: "
     FOR i = 0 TO n - 1
         READ arr[i]
@@ -238,7 +243,7 @@ PROCEDURE main()
     PRINT "ENTER THE ELEMENT TO BE SEARCHED: "
     READ x
 
-    DECLARE index: integer
+    DECLARE INT index
     SET index = linearSearch(arr, n, x)
     IF index == -1 THEN
         PRINT "ELEMENT NOT FOUND."
@@ -248,42 +253,42 @@ PROCEDURE main()
 END PROCEDURE
 ##############################################################
 REPEATED CHAR IN STRING
-FUNCTION main()
-    DECLARE ascii[129]: array of integers
+PROCEDURE main()
+    DECLARE INT ascii[129]
     SET all elements of ascii to 0
 
-    DECLARE str[1000]: array of characters
+    DECLARE CHAR str[1000]
     PRINT "ENTER THE STRING: "
     READ str
 
-    FOR i = 0 TO length of str - 1
-        INCREMENT ascii[(int)str[i]]
+    FOR i = 0 TO (length of str - 1)
+        INCREMENT ascii[(int)str[i]] BY 1
 
     PRINT "REPEATED ELEMENTS ARE: "
-    FOR i = 0 TO 129 - 1
+    FOR i = 0 TO 129
         IF ascii[i] > 1 AND i != 32
             PRINT i AS CHARACTER, "-", ascii[i]
         END IF
     END FOR
-END FUNCTION
+END PROCEDURE
 #############################################################
 SECOND LARGEST ELEMENT
 
-FUNCTION swap(x: pointer to integer, y: pointer to integer)
-    DECLARE temp: integer
+PROCEDURE swap(INT *x , INT *y)
+    DECLARE INT temp
     SET temp = *x
     *x = *y
     *y = temp
-END FUNCTION
+END PROCEDURE
 
-FUNCTION bubbleSort(A: pointer to integer, n: integer) -> integer
-    DECLARE i, j, comp: integers
+PROCEDURE bubbleSort(INT n ,INT A[])
+    DECLARE INT i, j, comp
     FOR i = 0 TO 2
         SET comp = 0
         FOR j = 0 TO n - i - 1
             IF A[j] > A[j + 1] THEN
                 CALL swap(&A[j], &A[j + 1])
-                INCREMENT comp
+                INCREMENT comp BY 1
             END IF
         END FOR
         IF comp == 0 THEN
@@ -291,40 +296,40 @@ FUNCTION bubbleSort(A: pointer to integer, n: integer) -> integer
         END IF
     END FOR
     RETURN A[n - 2]
-END FUNCTION
+END PROCEDURE
 
-FUNCTION main()
-    DECLARE n, i, x, m: integers
+PROCEDURE main()
+    DECLARE INT n, i, x, m
 
     PRINT "ENTER THE NUMBER OF ELEMENTS: "
     READ n
 
-    DECLARE arr[n]: array of integers
+    DECLARE INT arr[n]
     PRINT "ENTER ARRAY ELEMENTS: "
     FOR i = 0 TO n - 1
         READ arr[i]
     END FOR
 
-    PRINT "SECOND LARGEST ELEMENT IS: ", bubbleSort(arr, n)
-END FUNCTION
+    PRINT "SECOND LARGEST ELEMENT IS: ", bubbleSort(n, arr)
+END PROCEDURE
 #####################################################################
 BUBBLE SORT
 
-PROCEDURE swap(x: pointer to integer, y: pointer to integer)
-    DECLARE temp: integer
+PROCEDURE swap(INT *x, INT *y)
+    DECLARE INT temp
     SET temp = *x
     *x = *y
     *y = temp
 END PROCEDURE
 
-PROCEDURE bubbleSort(A: pointer to integer, n: integer)
-    DECLARE i, j, comp: integers
+PROCEDURE bubbleSort(INT n , INT A[])
+    DECLARE INT i, j, comp
     FOR i = 0 TO n - 1
         SET comp = 0
         FOR j = 0 TO n - i - 1
             IF A[j] > A[j + 1] THEN
                 CALL swap(&A[j], &A[j + 1])
-                INCREMENT comp
+                INCREMENT comp BY 1
             END IF
         END FOR
         IF comp == 0 THEN
@@ -334,17 +339,17 @@ PROCEDURE bubbleSort(A: pointer to integer, n: integer)
 END PROCEDURE
 
 PROCEDURE main()
-    DECLARE n, i, x: integers
+    DECLARE INT n, i, x
     PRINT "ENTER THE SIZE OF ARRAY: "
     READ n
 
-    DECLARE arr[n]: array of integers
+    DECLARE INT arr[n]
     PRINT "ENTER THE ARRAY ELEMENTS: "
     FOR i = 0 TO n - 1
         READ arr[i]
     END FOR
 
-    CALL bubbleSort(arr, n)
+    CALL bubbleSort(n , arr)
 
     PRINT "THE SORTED ARRAY IS: "
     FOR i = 0 TO n - 1
@@ -355,51 +360,51 @@ END PROCEDURE
 ###################################################################
 INSERTION SORT
 
-FUNCTION insertionSort(A: pointer to integer, n: integer)
-    DECLARE i, j, key: integers
+PROCEDURE insertionSort(INT A[] , INT n)
+    DECLARE INT i, j, key
     FOR i = 1 TO n - 1
         SET key = A[i]
         SET j = i - 1
 
         WHILE j >= 0 AND A[j] > key
             SET A[j + 1] = A[j]
-            DECREMENT j
+            DECREMENT j BY 1
         END WHILE
 
         SET A[j + 1] = key
     END FOR
-END FUNCTION
+END PROCEDURE
 
-FUNCTION main()
-    DECLARE n, i: integers
+PROCEDURE main()
+    DECLARE INT n, i
     PRINT "ENTER THE SIZE OF ARRAY: "
     READ n
 
-    DECLARE arr[n]: array of integers
+    DECLARE INT arr[n]
     PRINT "ENTER THE ARRAY ELEMENTS: "
     FOR i = 0 TO n - 1
         READ arr[i]
     END FOR
 
     CALL insertionSort(arr, n)
-
+    
     PRINT "THE SORTED ARRAY IS: "
     FOR i = 0 TO n - 1
         PRINT arr[i]
     END FOR
-END FUNCTION
+END PROCEDURE
 
 #################################################################
 SELECTION SORT
-PROCEDURE swap(x: pointer to integer, y: pointer to integer)
-    DECLARE temp: integer
+PROCEDURE swap(INT *x , INT *y)
+    DECLARE INT temp
     SET temp = *x
     *x = *y
     *y = temp
 END PROCEDURE
 
-PROCEDURE selectionSort(A: pointer to integer, n: integer)
-    DECLARE i, j, minIndex: integers
+PROCEDURE selectionSort(INT A[] , INT n)
+    DECLARE INT i, j, minIndex
     FOR i = 0 TO n - 1
         SET minIndex = i
         FOR j = i + 1 TO n
@@ -414,11 +419,11 @@ PROCEDURE selectionSort(A: pointer to integer, n: integer)
 END PROCEDURE
 
 PROCEDURE main()
-    DECLARE n, i: integers
+    DECLARE INT n, i
     PRINT "ENTER THE SIZE OF ARRAY: "
     READ n
 
-    DECLARE arr[n]: array of integers
+    DECLARE INT arr[n]
     PRINT "ENTER THE ARRAY ELEMENTS: "
     FOR i = 0 TO n - 1
         READ arr[i]
@@ -435,20 +440,18 @@ END PROCEDURE
 #################################################################
 STACK
 
-STACK
-
 STRUCT stack
     DECLARE top, size: integers
     DECLARE arr[100]: array of integers
 END STRUCT
 
-FUNCTION isFull(st: pointer to stack) RETURNS integer
+PROCEDURE isFull(st: pointer to stack) RETURNS integer
     RETURN (st->size == st->top + 1)
-END FUNCTION
+END PROCEDURE
 
-FUNCTION isEmpty(st: pointer to stack) RETURNS integer
+PROCEDURE isEmpty(st: pointer to stack) RETURNS integer
     RETURN (st->top == -1)
-END FUNCTION
+END PROCEDURE
 
 PROCEDURE push(st: pointer to stack, ele: integer)
     IF isFull(st) THEN
@@ -517,7 +520,7 @@ PROCEDURE main()
 END PROCEDURE
 ##########################################################
 SPARSE MATRIX REPRESENTATION
-FUNCTION insertElements(m: integer, n: integer, A: 2D array of integers)
+PROCEDURE insertElements(m: integer, n: integer, A: 2D array of integers)
     PRINT "ENTER THE ELEMENTS"
     FOR i = 0 TO m - 1
         PRINT "ENTER THE ROW ", i + 1, ":"
@@ -525,7 +528,7 @@ FUNCTION insertElements(m: integer, n: integer, A: 2D array of integers)
             READ A[i][j]
         END FOR
     END FOR
-END FUNCTION
+END PROCEDURE
 
 FUNCTION display(m: integer, n: integer, A: 2D array of integers)
     PRINT "THE SPARSE MATRIX IS:"
@@ -776,6 +779,100 @@ FUNCTION main()
 END FUNCTION
 
 ##################################################################
+CIRCULAR QUEUE
+
+FUNCTION isFull()
+    RETURN (front == rear + 1) OR (front == 0 AND rear == size - 1)
+END FUNCTION
+
+FUNCTION isEmpty()
+    RETURN (front == -1)
+END FUNCTION
+
+FUNCTION enQueue(element)
+    IF isFull() THEN
+        PRINT "Queue is full!!"
+    ELSE
+        IF front == -1 THEN
+            SET front = 0
+        END IF
+        SET rear = (rear + 1) % size
+        SET items[rear] = element
+        PRINT "Inserted -> " + element
+    END IF
+END FUNCTION
+
+FUNCTION deQueue()
+    DECLARE element
+    IF isEmpty() THEN
+        PRINT "Queue is empty!!"
+        RETURN -1
+    ELSE
+        SET element = items[front]
+        IF front == rear THEN
+            SET front = -1
+            SET rear = -1
+        ELSE
+            SET front = (front + 1) % size
+        END IF
+        PRINT "Deleted element -> " + element
+        RETURN element
+    END IF
+END FUNCTION
+
+FUNCTION display()
+    DECLARE i
+    IF isEmpty() THEN
+        PRINT "Empty Queue"
+    ELSE
+        PRINT "Front -> " + front
+        PRINT "Items -> "
+        FOR i = front TO rear
+            PRINT items[i] + " "
+        END FOR
+        PRINT "Rear -> " + rear
+    END IF
+END FUNCTION
+
+FUNCTION menu()
+    PRINT "Circular Queue:"
+    PRINT "1. Insert"
+    PRINT "2. Delete"
+    PRINT "3. Display"
+    PRINT "4. Exit"
+END FUNCTION
+
+FUNCTION main()
+    DECLARE choice, element
+    DO
+        menu()
+        PRINT "Enter your choice: "
+        READ choice
+        SWITCH choice
+            CASE 1:
+                PRINT "Enter the element to be inserted: "
+                READ element
+                enQueue(element)
+                BREAK
+            CASE 2:
+                deQueue()
+                BREAK
+            CASE 3:
+                display()
+                BREAK
+            CASE 4:
+                PRINT "Exit"
+                BREAK
+            DEFAULT:
+                PRINT "Invalid choice"
+        END SWITCH
+    WHILE choice != 4
+    RETURN 0
+END FUNCTION
+
+#################################################################
+PRIORITY QUEUE
+
 
 
 

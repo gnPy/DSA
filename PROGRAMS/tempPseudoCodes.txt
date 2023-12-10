@@ -774,6 +774,94 @@ FUNCTION main()
     END FOR
 END FUNCTION
 
+FUNCTION isFull()
+    RETURN (front == rear + 1) OR (front == 0 AND rear == size - 1)
+END FUNCTION
+
+FUNCTION isEmpty()
+    RETURN (front == -1)
+END FUNCTION
+
+FUNCTION enQueue(element)
+    IF isFull() THEN
+        PRINT "Queue is full!!"
+    ELSE
+        IF front == -1 THEN
+            SET front = 0
+        END IF
+        SET rear = (rear + 1) % size
+        SET items[rear] = element
+        PRINT "Inserted -> " + element
+    END IF
+END FUNCTION
+
+FUNCTION deQueue()
+    DECLARE element
+    IF isEmpty() THEN
+        PRINT "Queue is empty!!"
+        RETURN -1
+    ELSE
+        SET element = items[front]
+        IF front == rear THEN
+            SET front = -1
+            SET rear = -1
+        ELSE
+            SET front = (front + 1) % size
+        END IF
+        PRINT "Deleted element -> " + element
+        RETURN element
+    END IF
+END FUNCTION
+
+FUNCTION display()
+    DECLARE i
+    IF isEmpty() THEN
+        PRINT "Empty Queue"
+    ELSE
+        PRINT "Front -> " + front
+        PRINT "Items -> "
+        FOR i = front TO rear
+            PRINT items[i] + " "
+        END FOR
+        PRINT "Rear -> " + rear
+    END IF
+END FUNCTION
+
+FUNCTION menu()
+    PRINT "Circular Queue:"
+    PRINT "1. Insert"
+    PRINT "2. Delete"
+    PRINT "3. Display"
+    PRINT "4. Exit"
+END FUNCTION
+
+FUNCTION main()
+    DECLARE choice, element
+    DO
+        menu()
+        PRINT "Enter your choice: "
+        READ choice
+        SWITCH choice
+            CASE 1:
+                PRINT "Enter the element to be inserted: "
+                READ element
+                enQueue(element)
+                BREAK
+            CASE 2:
+                deQueue()
+                BREAK
+            CASE 3:
+                display()
+                BREAK
+            CASE 4:
+                PRINT "Exit"
+                BREAK
+            DEFAULT:
+                PRINT "Invalid choice"
+        END SWITCH
+    WHILE choice != 4
+    RETURN 0
+END FUNCTION
 
 
 
