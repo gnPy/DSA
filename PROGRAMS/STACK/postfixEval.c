@@ -56,10 +56,10 @@ int postfixEval(char postfix[]){
 
 int main(){
     char postfix[100] ; 
-    printf("Enter the postfix expression: ") ; 
+    printf("ENTER THE EXPRESSION: ") ; 
     scanf("%s" , postfix) ; 
     int res = postfixEval(postfix) ; 
-    printf("The result is: %d\n" , res) ; 
+    printf("THE RESULT IS : %d\n" , res) ; 
     return 0 ;
 }
 

@@ -42,14 +42,12 @@ int convertToThreeTuple(int r , int c, int A[r][c] , int C[101][3]){
 
 int main(){
     int r , c ; 
-    printf("ENTER THE ROW AND COLUMN OF MATRICES : ") ; 
+    printf("ENTER THE ROW AND COLUMN OF MATRICE : ") ; 
     scanf("%d %d" , &r , &c) ;
 
     int A[r][c] , C[r*c][3]; 
 
     insertElements(r , c ,A) ; 
-
-    display(r , c , A) ; 
 
     int k1 = convertToThreeTuple(r , c , A , C) ; 
 

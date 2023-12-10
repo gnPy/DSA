@@ -3,7 +3,7 @@
 #include <string.h>
 
 int isOperator(char ch) {
-    if (ch == '+' || ch == '-' || ch == '*' || ch == '/')
+    if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^')
         return 1;
     return 0;
 }
@@ -12,6 +12,8 @@ int Precedence(char ch) {
         return 2;
     else if (ch == '+' || ch == '-')
         return 1;
+    else if(ch == '^')
+        return 3;
     return 0;
 }
 void infixToPostfix(char infix[], char postfix[]) {
@@ -51,12 +53,12 @@ int main(){
     char infix[100];
     char postfix[100];
 
-    printf("Enter the infix expression: ");
-    scanf("%s", infix);
+    printf("ENTER THE INFIX EXPRESSION: ");
+    fgets(infix, 100, stdin);
 
     infixToPostfix(infix, postfix);
 
-    printf("The postfix expression is: %s\n", postfix);
+    printf("THE POSTFIX EXPRESSION IS : %s\n", postfix);
 
     return 0;
 }

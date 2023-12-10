@@ -3,7 +3,7 @@
 int items[100];
 int front = -1;
 int rear = -1 ; 
-int size = 100 ;
+int size ; 
 
 int isFull() {
   return (front == rear + 1) || (front == 0 && rear == size - 1);
@@ -14,22 +14,21 @@ int isEmpty() {
 }
 
 void enQueue(int element) {
-  if (isFull())
-    printf("\n Queue is full!! \n");
+  if (isFull()){
+    printf("QUEUE IS FULL \n");
+  }
   else {
     if (front == -1){
         front = 0;
     }
     rear = (rear + 1) % size;
     items[rear] = element;
-    printf("\n Inserted -> %d", element);
   }
 }
-
 int deQueue() {
   int element;
   if (isEmpty()) {
-    printf("\n Queue is empty !! \n");
+    printf("QUEUE IS EMPTY\n");
     return (-1);
   } 
   else{
@@ -38,47 +37,45 @@ int deQueue() {
       front = -1;
       rear = -1;
     } 
-
     else {
       front = (front + 1) % size;
     }
-    printf("\n Deleted element -> %d \n", element);
     return (element);
   }
 }
-
 void display() {
   int i;
-  if (isEmpty())
-    printf(" \n Empty Queue\n");
+  if (isEmpty()){
+    printf("QUEUE IS EMPTY\n");
+  }
   else {
-    printf("\n Front -> %d ", front);
-    printf("\n Items -> ");
     for (i = front; i != rear; i = (i + 1) % size) {
       printf("%d ", items[i]);
     }
     printf("%d ", items[i]);
-    printf("\n Rear -> %d \n", rear);
   }
 }
 
 void menu() {
-  printf("\n\n Circular Queue:\n");
-  printf("1. Insert \n");
-  printf("2. Delete \n");
-  printf("3. Display \n");
-  printf("4. Exit \n");
+  printf("CHOICES...\n");
+  printf("1. INSERT \n");
+  printf("2. DELETE \n");
+  printf("3. DISPLAY \n");
+  printf("4. EXIT \n");
 }
 
 int main() {
-  int choice, element;
+  int choice , element ;
+  printf("ENTER THE SIZE OF QUEUE : ");
+  scanf("%d", &size);
+
   do {
     menu();
-    printf("Enter your choice : ");
+    printf("ENTER YOUR CHOICE :");
     scanf("%d", &choice);
     switch (choice) {
       case 1:
-        printf("\n Enter the element to be inserted : ");
+        printf("ENTER ELEMENT TO BE INSERTED : ");
         scanf("%d", &element);
         enQueue(element);
         break;
@@ -89,11 +86,12 @@ int main() {
         display();
         break;
       case 4:
-        printf("Exit\n");
+        printf("EXIT\n");
         break;
       default:
-        printf("Invalid choice\n");
+        printf("INVALID CHOICE\n");
     }
+  printf("\n") ;
   } while (choice != 4);
   return 0;
 }
