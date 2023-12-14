@@ -6,40 +6,19 @@ struct node {
 	struct node *next ; 
 	}*head = NULL ; 
 
-void create(){
-	struct node *temp ; 
- 
-	int n ; 
-	printf("ENTER THE NUMBER OF ELEMENTS  : ") ; 
-	scanf("%d" , &n) ; 
-	
-	printf("ENTER THE ELEMENTS : ") ;  
-	for ( int i = 0 ; i< n ; i++){
-		struct node *ptr ; 
-		ptr = malloc(sizeof(struct node)) ;
-
-		scanf("%d" ,&ptr->data) ; 
-		if(i==0){
-			head = ptr ;
-			ptr->next =NULL ;  
-			temp = ptr ; 
-			}
-		else{
-			temp->next = ptr ; 
-			ptr->next =NULL ; 
-			temp = ptr ; 
-			}		
-		}
-	}
-
 void display(){
 	struct node *ptr ; 
 	ptr = head ; 
-	while(ptr!= NULL){
-		printf("%d " , ptr->data) ; 
-		ptr = ptr->next ; 
+	if(head == NULL){
+		printf("LIST IS EMPTY\n") ; 
 		}
-	printf("\n") ; 
+	else{
+		while(ptr->next != head){
+			printf("%d " , ptr->data) ; 
+			ptr = ptr->next ; 
+			}
+		printf("%d " , ptr->data) ; 
+		}
 	}
 
 void insertFront(){
@@ -48,9 +27,20 @@ void insertFront(){
 	printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
 	scanf("%d" , &ptr->data) ;
 	
-	ptr->next = head ;
-	head = ptr ; 
-	} 
+	if( head == NULL){
+		head = ptr ; 
+		ptr->next = ptr ; 
+	}
+	else{
+		struct node *temp = head ; 
+		while(temp->next != head){
+			temp = temp->next ; 
+			}
+		temp->next = ptr ; 
+		ptr->next = head ; 
+		head = ptr ; 	
+	}
+}
 	
 void insertBack(){
 	struct node *ptr ; 
@@ -59,17 +49,17 @@ void insertBack(){
 	scanf("%d" , &ptr->data) ;
 
 	if(head == NULL){
-		head = ptr ;
-		ptr->next =NULL ;  
-		} 
+		head = ptr ; 
+		ptr->next = ptr ; 
+	}
 	else{
-		struct node *temp = head ; 
-		while(temp->next != NULL){
+		struct node *temp ; 
+		temp = head ; 
+		while(temp->next != head){
 			temp = temp->next ; 
-			}
-		
+		}
 		temp->next = ptr ; 
-		ptr->next = NULL ;
+		ptr->next = head ; 
 	}
 }	
 
@@ -84,11 +74,11 @@ void insertBetween(){
 	printf("ENTER THE POSITION ON WHICH TO BE INSERTED  :") ; 
 	scanf("%d" , &pos) ; 
 	
-	while(temp != NULL && i < pos-1){
+	while(temp != head && i < pos-1){
 		temp = temp->next ; 
 		i++ ; 
 		}
-	if(temp == NULL){
+	if(temp == head){
 		printf("INVALID POSITION\n") ; 
 
 	}
@@ -104,9 +94,13 @@ void deleteFront(){
 		printf("LIST IS EMPTY\n") ; 
 		}
 	else{
-		struct node *temp= head ; 
-		head = head->next ; 
-		free(temp);  
+		struct node *temp = head ; 
+		while(temp->next != head){
+			temp = temp->next ; 
+			}
+		temp->next = head->next ; 
+		free(head) ; 
+		head = temp->next ; 	
 	}
 }
 
@@ -114,38 +108,39 @@ void deleteBack(){
 	if(head == NULL){
 		printf("LIST IS EMPTY\n") ; 
 		}
-	else if(head->next == NULL){
-		free(head) ;
-		head = NULL ; 
-		}
 	else{
 		struct node *temp = head ; 
-		while(temp->next->next != NULL){
+		while(temp->next->next != head){
 			temp = temp->next ; 
 			}
 		free(temp->next) ; 
-		temp->next = NULL ; 
+		temp->next = head ; 		
 	}
 } 
 
 void search(){
-	int x, i = 0 ; 
-	struct node *temp = head ; 
+	int key , flag = 0 ; 
 	printf("ENTER THE ELEMENT TO BE SEARCHED : ") ; 
-	scanf("%d", &x) ; 
-
-	while(temp != NULL){
-		if( temp->data == x){
-			printf("POSITION IS : %d\n" , i+1) ; 
+	scanf("%d" , &key) ; 
+	struct node *ptr = head ; 
+	while(ptr->next != head){
+		if(ptr->data == key){
+			flag = 1 ; 
 			break ; 
 			}
-		i++ ; 
-		temp = temp->next ; 
+		ptr = ptr->next ; 
 		}
-	if(temp == NULL){
-		printf("ELEMENT NOT FOUND.\n") ; 
+	if(ptr->data == key){
+		flag = 1 ; 
+		}
+	if(flag == 1){
+		printf("ELEMENT FOUND\n") ; 
+		}
+	else{
+		printf("ELEMENT NOT FOUND\n") ; 
 		}
 	}
+
 
 void menu(){
 	printf("1. CREATE\n") ; 
@@ -153,42 +148,49 @@ void menu(){
 	printf("3. INSERT AT FRONT\n") ; 
 	printf("4. INSERT AT BACK\n") ; 
 	printf("5. INSERT BETWEEN\n") ; 
-	printf("6. DELETE FRONT\n") ; 
-	printf("7. DELETE BACK\n") ; 
+	printf("6. DELETE FROM FRONT\n") ; 
+	printf("7. DELETE FROM BACK\n") ; 
 	printf("8. SEARCH\n") ; 
 	printf("9. EXIT\n") ; 
-	}
+}
 
 
 int main(){
 	int choice ; 
-	menu() ; 
 	while(1){
+		menu() ; 
 		printf("ENTER YOUR CHOICE : ") ; 
 		scanf("%d" , &choice) ; 
 		switch(choice){
-			case 1 : create() ; 
-				 break ; 
-			case 2 : display() ; 
-				 break ; 
-			case 3 : insertFront() ; 
-				 break ; 
-			case 4 : insertBack() ; 
-				 break ; 
-			case 5 : insertBetween() ; 
-				 break ; 
-			case 6 : deleteFront() ; 
-				 break ; 
-			case 7 : deleteBack() ; 
-				 break ; 
-			case 8 : search() ; 
-				 break ; 
-			case 9 : exit(0) ; 
-				 break ; 
-			default : printf("INVALID CHOICE\n") ; 
-				  break ; 
-			}
-		printf("\n") ; 
+			case 1 : 
+				insertBack() ; 
+				break ; 
+			case 2 : 
+				display() ; 
+				break ; 
+			case 3 : 
+				insertFront() ; 
+				break ; 
+			case 4 : 
+				insertBack() ; 
+				break ; 
+			case 5 : 
+				insertBetween() ; 
+				break ; 
+			case 6 : 
+				deleteFront() ; 
+				break ; 
+			case 7 : 
+				deleteBack() ; 
+				break ; 
+			case 8 : 
+				search() ; 
+				break ; 
+			case 9 : 
+				exit(0) ; 
+			default : 
+				printf("INVALID CHOICE\n") ; 
 		}
-	return 0 ; 
 	}
+	return 0 ;
+}

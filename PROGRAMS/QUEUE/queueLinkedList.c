@@ -20,16 +20,22 @@ void enqueue(){
 	struct node *ptr ; 
 	ptr = malloc(sizeof(struct node)) ; 
 	printf("ENTER THE ELEMENT TO BE INSERTED  : ") ; 
-	scanf("%d" , &ptr->data) ; 
+	scanf("%d" , &ptr->data) ;
 
-	struct node *temp = head ; 
-	while(temp->next != NULL){
-		temp = temp->next ; 
-		}
-	
-	temp->next = ptr ; 
-	ptr->next = NULL ;
-	}	
+	if(head == NULL){
+		head = ptr ;
+		ptr->next =NULL ;  
+		} 
+	else{
+		struct node *temp = head ; 
+		while(temp->next != NULL){
+			temp = temp->next ; 
+			}
+		
+		temp->next = ptr ; 
+		ptr->next = NULL ;
+	}
+}	
 
 void dequeue(){
 	if(head == NULL){
@@ -42,67 +48,27 @@ void dequeue(){
 	}
 }
 
-void search(){
-	int x, i = 0 ; 
-	struct node *temp = head ; 
-	printf("ENTER THE ELEMENT TO BE SEARCHED : ") ; 
-	scanf("%d", &x) ; 
-
-	while(temp != NULL){
-		if( temp->data == x){
-			printf("POSITION IS : %d\n" , i+1) ; 
-			break ; 
-			}
-		i++ ; 
-		temp = temp->next ; 
-		}
-	if(temp == NULL){
-		printf("ELEMENT NOT FOUND.\n") ; 
-		}
-	}
-
 void menu(){
-	printf("1. CREATE\n") ; 
-	printf("2. DISPLAY\n") ; 
-	printf("3. INSERT AT FRONT\n") ; 
-	printf("4. INSERT AT END\n") ; 
-	printf("5. INSERT BETWEEN\n") ; 
-	printf("6. DELETE FRONT\n") ; 
-	printf("7. DELETE END\n") ; 
-	printf("8. SEARCH\n") ; 
-	printf("9. EXIT\n") ; 
-	}
-
+	printf("1. ENQUEUE\n") ; 
+	printf("2. DEQUEUE\n") ; 
+	printf("3. DISPLAY\n") ; 
+	printf("4. EXIT\n") ; 
+}
 
 int main(){
 	int choice ; 
-	menu() ; 
 	while(1){
+		menu() ; 
 		printf("ENTER YOUR CHOICE : ") ; 
 		scanf("%d" , &choice) ; 
 		switch(choice){
-			case 1 : create() ; 
-				 break ; 
-			case 2 : display() ; 
-				 break ; 
-			case 3 : insertFront() ; 
-				 break ; 
-			case 4 : insertEnd() ; 
-				 break ; 
-			case 5 : insertBetween() ; 
-				 break ; 
-			case 6 : deleteFront() ; 
-				 break ; 
-			case 7 : deleteEnd() ; 
-				 break ; 
-			case 8 : search() ; 
-				 break ; 
-			case 9 : exit(0) ; 
-				 break ; 
+			case 1 : enqueue() ; break ; 
+			case 2 : dequeue() ; break ; 
+			case 3 : display() ; break ; 
+			case 4 : exit(0) ; 
 			default : printf("INVALID CHOICE\n") ; 
-				  break ; 
-			}
-		printf("\n") ; 
 		}
-	return 0 ; 
+		printf("\n") ; 
 	}
+	return 0 ;
+}
