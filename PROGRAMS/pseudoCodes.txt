@@ -793,8 +793,7 @@ PROCEDURE main()
     WHILE choice != 4
 END PROCEDURE
 
-
-#######################################################################
+###########################################################
 MERGE SORT
 PROCEDURE merge(INT arr[] , INT l , INT m, INT r)
     DECLARE INT i, j, k
@@ -1043,5 +1042,4 @@ PROCEDURE main()
 END PROCEDURE
 
 ###################################################################
-
-
+LINKED LIST OPERATIONS
