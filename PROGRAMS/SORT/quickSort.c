@@ -26,7 +26,7 @@ int partition(int A[] , int low, int high){
 void quicksort(int A[] , int low , int high){
 	if(low<high){
 		int pivot = partition(A , low , high) ; 
-		quicksort(A , low , pivot) ; 
+		quicksort(A , low , pivot-1) ; 
 		quicksort(A , pivot+1 , high) ; 
 		}
 	}
@@ -36,11 +36,11 @@ void quicksort(int A[] , int low , int high){
 
 
 int main(){
-	int arr[] = {5 , 4 , 3 , 2 , 1} ; 
+	int arr[] = {60,70,50,10,30,40,30} ; 
 	
-	quicksort(arr , 0 , 4) ; 
+	quicksort(arr , 0 , 6) ; 
 	
-	for( int i = 0 ; i < 5 ; i++){
+	for( int i = 0 ; i < 7 ; i++){
 		printf("%d " , arr[i]) ; 
 		}
 	}
