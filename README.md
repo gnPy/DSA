@@ -1,4 +1,4 @@
 # **DS LAB PROGRAMS**
 
-PROGRAMS [https://github.com/gnPy/KTU-SEM-3---DS-LAB/tree/be7cfb5541475ad9a1281d487bf4307de435a92e/PROGRAMS]
-PSEUDOCODE [https://github.com/gnPy/KTU-SEM-3---DS-LAB/tree/be7cfb5541475ad9a1281d487bf4307de435a92e/PSEUDOCODES]
+[PROGRAMS](https://github.com/gnPy/KTU-SEM-3---DS-LAB/tree/be7cfb5541475ad9a1281d487bf4307de435a92e/PROGRAMS)
+[PSEUDOCODE](https://github.com/gnPy/KTU-SEM-3---DS-LAB/tree/be7cfb5541475ad9a1281d487bf4307de435a92e/PSEUDOCODES)
