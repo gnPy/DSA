@@ -7,7 +7,6 @@ struct node{
     struct node *next;
 }*poly1 = NULL , *poly2 = NULL , *poly3 = NULL; 
 
-
 int createPoly1(){
     int n , i , m = 0; 
     struct node *ptr, *temp = poly1;
@@ -90,10 +89,8 @@ void displayPoly(struct node *head){
     printf("\n");
 }
 
-void multiplyPoly(struct node *head1 , struct node *head2 , int m){
+void multiplyPoly(struct node *head1 , struct node *head2){
     struct node *ptr1 , *ptr2 ; 
-    ptr1 = head1 ; 
-    ptr2 = head2 ; 
 
     int hash[100] = {0};
 
@@ -118,9 +115,7 @@ int main(){
     printf("POLYNOMIAL 2 : ");
     displayPoly(poly2);
 
-    int m = (m1 > m2) ? m1 : m2;
-
-    multiplyPoly(poly1 , poly2 , m);
+    multiplyPoly(poly1 , poly2);
 
     printf("MULTIPLIED POLYNOMIAL : ");
     displayPoly(poly3);
