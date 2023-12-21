@@ -1,3 +1,11 @@
+/*
+    UPDATIONS TO BE MADE : 
+        . One func for creating Poly
+        . solve garbage value issue
+        . make length of hash dynamic 
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
