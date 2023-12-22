@@ -101,5 +101,4 @@ int main(){
 
     printf("MULTIPLIED POLYNOMIAL : ");
     displayPoly(poly3);
-
 }
