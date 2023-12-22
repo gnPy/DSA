@@ -91,6 +91,10 @@ void createPolyFromHash(int hash[]){
 void displayPoly(struct node *head){
     struct node *ptr = head;
     while(ptr != NULL){
+        if(ptr->next == NULL){
+            printf("%dx^%d", ptr->coeff, ptr->pow);
+            break;
+        }
         printf("%dx^%d + ", ptr->coeff, ptr->pow);
         ptr = ptr->next;
     }
