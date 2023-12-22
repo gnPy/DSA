@@ -1,13 +1,7 @@
-/*
-    UPDATIONS TO BE MADE : 
-        . One func for creating Poly
-        . solve garbage value issue
-        . make length of hash dynamic 
-*/
-
-
 #include <stdio.h>
 #include <stdlib.h>
+
+int degree = 0; 
 
 struct node{
     int coeff;
@@ -15,17 +9,17 @@ struct node{
     struct node *next;
 }*poly1 = NULL , *poly2 = NULL , *poly3 = NULL; 
 
-int createPoly1(){
+struct node *createPoly(struct node *head){
     int n , i , m = 0; 
-    struct node *ptr, *temp = poly1;
-    printf("ENTER NUMBER OF TERMS IN POLYNOMIAL 1 : ");
+    struct node *ptr, *temp = head;
+    printf("ENTER NUMBER OF TERMS IN POLYNOMIAL : ");
     scanf("%d", &n);
     for(i = 0 ; i < n ; i++){
         ptr = malloc(sizeof(struct node));
         printf("ENTER COEFFICIENT AND POWER : ");
         scanf("%d %d", &ptr->coeff, &ptr->pow);
         if(i == 0){
-            poly1 = ptr;  
+            head = ptr;  
             ptr->next = NULL;
             temp = ptr;
         }
@@ -38,38 +32,13 @@ int createPoly1(){
             m = ptr->pow;
         }       
     }
-    return m;
+    degree += m;
+    return head;
 }
-
-int createPoly2(){
-    int n , i , m = 0; 
-    struct node *ptr, *temp = poly2;
-    printf("ENTER NUMBER OF TERMS IN POLYNOMIAL 2 : ");
-    scanf("%d", &n);
-    for(i = 0 ; i < n ; i++){
-        ptr = malloc(sizeof(struct node));
-        printf("ENTER COEFFICIENT AND POWER : ");
-        scanf("%d %d", &ptr->coeff, &ptr->pow);
-        if(i == 0){
-            poly2 = ptr;  
-            ptr->next = NULL;
-            temp = ptr;
-        }
-        else{
-            temp->next = ptr;
-            ptr->next = NULL;
-            temp = ptr;
-        }
-        if(ptr->pow > m){
-            m = ptr->pow;
-        }       
-    }
-    return m;
-}
-void createPolyFromHash(int hash[]){
+void createPolyFromHash(int hash[] , int m){
     struct node *ptr , *temp = poly3 ;
 
-    for(int i = 0 ; i<=100 ; i++){
+    for(int i = 0 ; i<m+1 ; i++){
         if(hash[i] != 0){
             ptr = malloc(sizeof(struct node));
             ptr->coeff = hash[i];
@@ -101,10 +70,13 @@ void displayPoly(struct node *head){
     printf("\n");
 }
 
-void multiplyPoly(struct node *head1 , struct node *head2){
+void multiplyPoly(struct node *head1 , struct node *head2, int m){
     struct node *ptr1 , *ptr2 ; 
 
-    int hash[100] = {0};
+    int hash[m+1] ; 
+    for(int i = 0 ; i<m+1 ; i++){
+        hash[i] = 0;
+    }
 
     for (ptr1 = head1; ptr1 != NULL; ptr1 = ptr1->next) {
         for (ptr2 = head2; ptr2 != NULL; ptr2 = ptr2->next) {
@@ -113,25 +85,21 @@ void multiplyPoly(struct node *head1 , struct node *head2){
             hash[p] += c;
         }
     }
-
-    createPolyFromHash(hash);
-
+    createPolyFromHash(hash , m);
 }
 
 int main(){
-    int m1 = createPoly1();
-    int m2 = createPoly2();
-
+    poly1 = createPoly(poly1);
+    poly2 = createPoly(poly2);
+    
     printf("POLYNOMIAL 1 : ");
     displayPoly(poly1);
     printf("POLYNOMIAL 2 : ");
     displayPoly(poly2);
 
-    multiplyPoly(poly1 , poly2);
+    multiplyPoly(poly1 , poly2, degree);
 
     printf("MULTIPLIED POLYNOMIAL : ");
     displayPoly(poly3);
 
 }
-
-
