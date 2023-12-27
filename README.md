@@ -2,7 +2,7 @@
 
 > [!TIP]
 > Only God and I knew how these codes worked.<br>
-> Now it seems only God Only Knows🥲.<br>
+> Now it seems only God Knows🥲.<br>
 > If u find any Errors... Consider them as Easter Eggs and Continue your treasure hunt😂<br>
 > All Is Well💥<br>
 
