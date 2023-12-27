@@ -1,10 +1,10 @@
 # **DS LAB PROGRAMS**
 
 > [!TIP]
-> Only God and I knew how these codes worked.
-> Now it seems only God Only Knows🥲.
-> If u find any Errors... Consider them as Easter Eggs and Continue your treasure hunt😂
-> All Is Well💥
+> Only God and I knew how these codes worked.<br>
+> Now it seems only God Only Knows🥲.<br>
+> If u find any Errors... Consider them as Easter Eggs and Continue your treasure hunt😂<br>
+> All Is Well💥<br>
 
 ## PROGRAMS
 
