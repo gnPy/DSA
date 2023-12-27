@@ -1,7 +1,10 @@
 # **DS LAB PROGRAMS**
 
 > [!TIP]
-> Use this REPO for reference purpose only.
+> Only God and I knew how these codes worked.
+> Now it seems only God Only Knows🥲.
+> If u find any Errors... Consider them as Easter Eggs and Continue your treasure hunt😂
+> All Is Well💥
 
 ## PROGRAMS
 
