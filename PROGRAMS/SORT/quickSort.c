@@ -31,10 +31,6 @@ void quicksort(int A[] , int low , int high){
 		}
 	}
 
-
-
-
-
 int main(){
 	int arr[] = {60,70,50,10,30,40,30} ; 
 	
