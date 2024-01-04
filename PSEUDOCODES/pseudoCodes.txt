@@ -364,94 +364,106 @@ END PROCEDURE
 
 #################################################################
 STACK
-
 STRUCT stack
-    DECLARE INT top, size
+    DECLARE INT top
+    DECLARE INT size
     DECLARE INT arr[100]
 END STRUCT
 
-PROCEDURE isFull(STRUCT stack *st) 
-    RETURN (st->size == st->top + 1)
+PROCEDURE isFull(st)
+    RETURN (st.size == st.top + 1)
 END PROCEDURE
 
-PROCEDURE isEmpty(STRUCT stack *st) 
-    RETURN (st->top == -1)
+PROCEDURE isEmpty(st)
+    RETURN (st.top == -1)
 END PROCEDURE
 
-PROCEDURE push(STRUCT stack *st,INT ele)
+PROCEDURE push(st, ele)
     IF isFull(st) THEN
         PRINT "STACK IS FULL."
     ELSE
-        st->arr[++(st->top)] = ele
+        st.arr[++(st.top)] = ele
     END IF
 END PROCEDURE
 
-PROCEDURE pop(STRUCT stack *st)
+PROCEDURE pop(st)
     IF isEmpty(st) THEN
         PRINT "STACK IS EMPTY."
     ELSE
-        PRINT st->arr[(st->top)--]
+        st.arr[(st.top)--]
     END IF
 END PROCEDURE
 
-PROCEDURE peek(STRUCT stack *st)
+PROCEDURE peek(st)
     IF isEmpty(st) THEN
         PRINT "STACK IS EMPTY."
     ELSE
-        PRINT st->arr[st->top]
+        PRINT st.arr[st.top]
+    END IF
+END PROCEDURE
+
+PROCEDURE display(st)
+    IF isEmpty(st) THEN
+        PRINT "STACK IS EMPTY."
+    ELSE
+        FOR i = st.top TO 0 STEP -1
+            PRINT st.arr[i]
+        END FOR
     END IF
 END PROCEDURE
 
 PROCEDURE displayMenu()
-    PRINT "\n------ MENU ------"
+    PRINT "------ MENU ------"
     PRINT "1. PUSH"
     PRINT "2. POP"
     PRINT "3. PEEK"
-    PRINT "4. EXIT"
+    PRINT "4. DISPLAY"
+    PRINT "5. EXIT"
     PRINT "-------------------"
 END PROCEDURE
 
 PROCEDURE main()
-    DECLARE STACK st
+    DECLARE stack st
     st.top = -1
 
-    PRINT "ENTER THE SIZE OF STACK: "
+    PRINT "ENTER THE SIZE OF STACK : "
     READ st.size
 
     DECLARE INT choice, ele
-    set choice = 0 
-
-    WHILE choice != 4
-        CALL displayMenu()
-        PRINT "ENTER THE CHOICE: "
+    CALL displayMenu()
+    WHILE choice != 5
+        PRINT "ENTER THE CHOICE : "
         READ choice
 
-        SWITCH (choice)
+        SWITCH choice
             CASE 1
-                PRINT "ENTER THE NUMBER: "
+                PRINT "ENTER THE NUMBER : "
                 READ ele
-                CALL push(&st, ele)
+                CALL push(st, ele)
             CASE 2
-                CALL pop(&st)
+                CALL pop(st)
             CASE 3
-                CALL peek(&st)
+                CALL peek(st)
             CASE 4
+                CALL display(st)
+            CASE 5
                 PRINT "EXITING."
             DEFAULT
                 PRINT "WRONG CHOICE."
         END SWITCH
-
-        PRINT "\n"
+        PRINT ""
     END WHILE
 END PROCEDURE
+
+
 ##########################################################
 QUEUE
 
 STRUCT queue
-    DECLARE INT size
-    DECLARE INT rear
-    DECLARE INT front
-    DECLARE INT arr[100]
+    INT size
+    INT rear
+    INT front
+    INT arr[100]
 END STRUCT
 
 PROCEDURE isFull(q)
@@ -474,7 +486,7 @@ PROCEDURE dequeue(q)
     IF isEmpty(q) THEN
         PRINT "THE QUEUE IS EMPTY."
     ELSE
-        PRINT q.arr[++(q.front)]
+        q.arr[++(q.front)]
     END IF
 END PROCEDURE
 
@@ -485,6 +497,7 @@ PROCEDURE display(q)
         FOR i = q.front + 1 TO q.rear
             PRINT q.arr[i]
         END FOR
+        PRINT ""
     END IF
 END PROCEDURE
 
@@ -498,41 +511,35 @@ PROCEDURE displayMenu()
 END PROCEDURE
 
 PROCEDURE main()
-    DECLARE INT q
+    DECLARE queue q
     q.front = q.rear = -1
 
     PRINT "ENTER THE SIZE OF QUEUE : "
     READ q.size
 
     DECLARE INT choice, n
-    SET choice = 0
-
+    CALL displayMenu()
     WHILE choice != 4
-        displayMenu()
         PRINT "ENTER CHOICE : "
         READ choice
 
         SWITCH choice
-            CASE 1:
+            CASE 1
                 PRINT "ENTER THE ELEMENT : "
                 READ n
-                enqueue(q, n)
-                BREAK
-            CASE 2:
-                dequeue(q)
-                BREAK
-            CASE 3:
-                display(q)
-                BREAK
-            CASE 4:
+                CALL enqueue(q, n)
+            CASE 2
+                CALL dequeue(q)
+            CASE 3
+                CALL display(q)
+            CASE 4
                 PRINT "EXITING."
-                BREAK
-            DEFAULT:
+            DEFAULT
                 PRINT "WRONG CHOICE."
         END SWITCH
+        PRINT ""
     END WHILE
 END PROCEDURE
-#####################################################################
 SPARSE MATRIX REPRESENTATION
 PROCEDURE insertElements(m, n, A)
     DECLARE INT i,j
@@ -1151,3 +1158,63 @@ PROCEDURE main()
     CALL displayPoly(poly3)
 END PROCEDURE
 #################################################################################################
+QUICK SORT
+PROCEDURE swap(a, b)
+    DECLARE temp
+    SET temp = b
+    SET b = a
+    SET a = temp
+END PROCEDURE
+
+PROCEDURE partition(A, low, high)
+    DECLARE pivot, i, j
+    SET pivot = A[low]
+    SET i = low
+    SET j = high
+
+    WHILE i < j
+        WHILE A[i] <= pivot
+            INCREMENT i
+        END WHILE
+
+        WHILE A[j] > pivot
+            DECREMENT j
+        END WHILE
+
+        IF i < j THEN
+            CALL swap(A[i], A[j])
+        END IF
+    END WHILE
+
+    CALL swap(A[low], A[j])
+    RETURN j
+END PROCEDURE
+
+PROCEDURE quicksort(A, low, high)
+    DECLARE pivot
+    IF low < high THEN
+        SET pivot = CALL partition(A, low, high)
+        CALL quicksort(A, low, pivot - 1)
+        CALL quicksort(A, pivot + 1, high)
+    END IF
+END PROCEDURE
+
+PROCEDURE main()
+    DECLARE n
+    PRINT "ENTER THE NUMBER OF ELEMENTS : "
+    READ n
+    DECLARE A[n]
+    PRINT "ENTER THE ELEMENTS : "
+    FOR i = 0 TO n - 1
+        READ A[i]
+    END FOR
+    CALL quicksort(A, 0, n - 1)
+    PRINT "THE SORTED ARRAY IS : "
+    FOR i = 0 TO n - 1
+        PRINT A[i] + " "
+    END FOR
+    PRINT "\n"
+END PROCEDURE
+
+#################################################################################################
+

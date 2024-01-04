@@ -29,7 +29,7 @@ void dequeue(struct queue *q){
 		 printf("THE QUEUE IS EMPTY.\n") ;  	 		 
 		}
 	else{
-		printf("%d\n" , q->arr[++(q->front)]);
+		q->arr[++(q->front)];
 		}
 	}
 
@@ -63,9 +63,8 @@ int main() {
     scanf("%d", &q.size);
 
     int choice = 0, n;
-
+    displayMenu();
     while(choice != 4){
-        displayMenu();
         printf("ENTER CHOICE : ");
         scanf("%d", &choice);
 
@@ -91,21 +90,6 @@ int main() {
             default:
                 printf("WRONG CHOICE.\n");
         }
+        printf("\n");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

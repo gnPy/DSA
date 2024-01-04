@@ -28,7 +28,7 @@ void pop(struct stack *st){
 		printf("STACK IS EMPTY.\n") ; 
 		}	
 	else{
-		printf("%d\n" , st->arr[(st->top)--]) ; 
+		st->arr[(st->top)--]; 
 		} 
 	}			
 
@@ -41,12 +41,24 @@ void peek(struct stack *st){
 		}
 	}
 
+void display(struct stack *st){
+	if(isEmpty(st)){
+		printf("STACK IS EMPTY.\n") ; 
+		}
+	else{
+		for(int i = st->top ; i >= 0 ; i--){
+			printf("%d\n" , st->arr[i]) ; 
+			}
+		}
+	}
+
 void displayMenu() {
     printf("\n------ MENU ------\n");
     printf("1. PUSH\n");
     printf("2. POP\n");
     printf("3. PEEK\n");
-    printf("4. EXIT\n");
+	printf("4. DISPLAY\n");
+    printf("5. EXIT\n");
     printf("-------------------\n");
 }
 
@@ -58,9 +70,8 @@ int main() {
 	scanf("%d" , &st.size) ; 
 
     int choice = 0, ele;
-
-    while (choice != 4){
-        displayMenu();
+	displayMenu() ;
+    while (choice != 5){
         printf("ENTER THE CHOICE : ");
         scanf("%d", &choice);
 
@@ -80,8 +91,12 @@ int main() {
                 break;
 
             case 4:
-                printf("EXITING.\n");
+                display(&st);
                 break;
+			
+			case 5:
+				printf("EXITING.\n") ;
+				break ;
 
             default:
                 printf("WRONG CHOICE.\n");

@@ -32,12 +32,19 @@ void quicksort(int A[] , int low , int high){
 	}
 
 int main(){
-	int arr[] = {60,70,50,10,30,40,30} ; 
-	
-	quicksort(arr , 0 , 6) ; 
-	
-	for( int i = 0 ; i < 7 ; i++){
-		printf("%d " , arr[i]) ; 
+	int n ; 
+	printf("ENTER THE NUMBER OF ELEMENTS : ") ;
+	scanf("%d" , &n) ;
+	int A[n] ;
+	printf("ENTER THE ELEMENTS : ") ;
+	for(int i = 0 ; i<n ; i++){
+		scanf("%d" , &A[i]) ; 
 		}
+	quicksort(A , 0 , n-1) ;
+	printf("THE SORTED ARRAY IS : ") ;
+	for(int i = 0 ; i<n ; i++){
+		printf("%d " , A[i]) ; 
+		}
+	printf("\n") ;
 	}
 
