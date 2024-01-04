@@ -709,9 +709,10 @@ END FUNCTION
 ######################################################################
 CIRCULAR QUEUE
 
-DECLARE INT items[100]; 
-DECLARE INT front, rear,size
-SET front = -1, rear= -1
+DECLARE INT items[100]
+DECLARE INT front = -1
+DECLARE INT rear = -1
+DECLARE INT size
 
 PROCEDURE isFull()
     RETURN (front == rear + 1) OR (front == 0 AND rear == size - 1)
@@ -721,32 +722,32 @@ PROCEDURE isEmpty()
     RETURN (front == -1)
 END PROCEDURE
 
-PROCEDURE enQueue(element)
+PROCEDURE enQueue(INT element)
     IF isFull() THEN
         PRINT "QUEUE IS FULL"
     ELSE
         IF front == -1 THEN
-            front = 0
+            SET front = 0
         END IF
-        rear = (rear + 1) % size
-        items[rear] = element
+        SET rear = (rear + 1) % size
+        SET items[rear] = element
     END IF
 END PROCEDURE
 
 PROCEDURE deQueue()
-    DECLARE element
+    DECLARE INT element
     IF isEmpty() THEN
         PRINT "QUEUE IS EMPTY"
-        RETURN -1
+        RETURN (-1)
     ELSE
-        element = items[front]
+        SET element = items[front]
         IF front == rear THEN
-            front = -1
-            rear = -1
+            SET front = -1
+            SET rear = -1
         ELSE
-            front = (front + 1) % size
+            SET front = (front + 1) % size
         END IF
-        RETURN element
+        RETURN (element)
     END IF
 END PROCEDURE
 
@@ -773,9 +774,8 @@ PROCEDURE main()
     DECLARE INT choice, element
     PRINT "ENTER THE SIZE OF QUEUE : "
     READ size
-
+    menu()
     DO
-        menu()
         PRINT "ENTER YOUR CHOICE :"
         READ choice
         SWITCH choice
@@ -791,13 +791,14 @@ PROCEDURE main()
                 display()
                 BREAK
             CASE 4:
-                PRINT "EXIT"
+                PRINT "EXITING"
                 BREAK
             DEFAULT:
                 PRINT "INVALID CHOICE"
         END SWITCH
         PRINT ""
     WHILE choice != 4
+    RETURN 0
 END PROCEDURE
 
 ###########################################################

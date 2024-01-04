@@ -68,9 +68,8 @@ int main() {
   int choice , element ;
   printf("ENTER THE SIZE OF QUEUE : ");
   scanf("%d", &size);
-
+  menu() ; 
   do {
-    menu();
     printf("ENTER YOUR CHOICE :");
     scanf("%d", &choice);
     switch (choice) {
@@ -86,7 +85,7 @@ int main() {
         display();
         break;
       case 4:
-        printf("EXIT\n");
+        printf("EXITING\n");
         break;
       default:
         printf("INVALID CHOICE\n");
