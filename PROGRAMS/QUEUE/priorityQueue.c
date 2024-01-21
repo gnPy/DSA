@@ -1,124 +1,115 @@
-#include<stdio.h>
+#include <stdio.h>
 
+struct queue{
+  int front ; 
+  int rear ; 
+  int size ; 
+  int arr[] ; 
+}; 
 
-
-int idx = -1;
-
-
-int pqVal[MAX];
-int pqPriority[MAX];
-
-
-
-int isEmpty ()
-{
-  return idx == -1;
+int isFull(struct queue *q){
+  return(q->rear == q->size- 1) ; 
 }
 
-int
-isFull ()
-{
-  return idx == MAX - 1;
+int isEmpty(struct queue *q){
+  return(q->front == q->rear) ; 
 }
 
-// enqueue just adds item to the end of the priority queue | O(1)
-void enqueue (int data, int priority)
-{
-  if (!isFull ())
-    {
+void dequeue(struct queue *q){
+  if(isEmpty(q)){
+      printf("Queue is empty\n") ; 
+      q->front = -1 ; 
+      q->rear = -1 ;
+  }
+  else{
+      q->front++ ; 
+        if (q->front > q->rear) {
+            q->front = -1;
+            q->rear = -1;
+        }
 
-      // Increase the index
-      idx++;
+  }
+}
 
-      // Insert the element in priority queue
-      pqVal[idx] = data;
-      pqPriority[idx] = priority;
+void enqueue(struct queue *q, int data){
+  if(isFull(q)){
+      printf("QUEUE IS FULL.\n") ; 
+  }
+  else if(isEmpty(q)){
+      q->rear++ ; 
+      q->arr[q->rear] = data ;    
+  }
+  else{
+      int i = q->rear ; 
+      while(i >= q->front && q->arr[i] > data){
+          q->arr[i+1] = q->arr[i] ; 
+          i-- ; 
+      }
+      q->arr[i+1] = data ; 
+      q->rear++ ;
+
+  }
+}
+
+
+void display(struct queue *q){
+  if(isEmpty(q)){
+      printf("QUEUE IS EMPTY\n") ; 
+  }
+  else{
+      int front ; 
+      if(q->front == -1){
+          front = 0 ; 
+      }
+      else{
+          front = q->front ; 
+      }
+
+      for(int i = front ; i <= q->rear ; i++){
+          printf("%d ", q->arr[i]) ; 
+      }
+      printf("\n") ; 
+  }
+}
+
+void menu(){
+  printf("1. ENQUEUE\n") ; 
+  printf("2. DEQUEUE\n") ; 
+  printf("3. DISPLAY\n") ; 
+  printf("4. EXIT\n") ; 
+}
+
+void main(){
+  struct queue q ; 
+  q.front = -1 ; 
+  q.rear = -1 ; 
+
+  printf("ENTER THE SIZE OF THE QUEUE : ") ; 
+  scanf("%d", &q.size) ; 
+  menu() ;
+  int choice = 0 ;
+  while(choice != 4){
+    printf("ENTER YOUR CHOICE : ") ; 
+    scanf("%d", &choice) ; 
+    switch(choice){
+      case 1 : 
+        printf("ENTER THE ELEMENT TO BE INSERTED : ") ; 
+        int data ; 
+        scanf("%d", &data) ; 
+        enqueue(&q, data) ; 
+        break ; 
+      case 2 : 
+        dequeue(&q) ; 
+        break ; 
+      case 3 : 
+        display(&q) ; 
+        break ; 
+      case 4 : 
+        break ; 
+      default : 
+        printf("INVALID CHOICE\n") ; 
+        break ; 
     }
-}
-
-// returns item with highest priority
-// NOTE: Max Priority Queue High priority number means higher priority | O(N)
-int peek ()
-{
-  // Note : Max Priority, so assigned min value as initial value
-  int maxPriority = INT_MIN;
-  int indexPos = -1;
-
-  // Linear search for highest priority
-  for (int i = 0; i <= idx; i++)
-    {
-      // If two items have same priority choose the one with 
-      // higher data value 
-      if (maxPriority == pqPriority[i] && indexPos > -1
-	  && pqVal[indexPos] < pqVal[i])
-	{
-	  maxPriority = pqPriority[i];
-	  indexPos = i;
-	}
-
-      // note: using MAX Priority so higher priority number
-      // means higher priority
-      else if (maxPriority < pqPriority[i])
-	{
-	  maxPriority = pqPriority[i];
-	  indexPos = i;
-	}
-    }
-
-  // Return index of the element where 
-  return indexPos;
-}
-
-// This removes the element with highest priority
-// from the priority queue | O(N)
-void dequeue ()
-{
-  if (!isEmpty ())
-    {
-      // Get element with highest priority
-      int indexPos = peek ();
-
-      // reduce size of priority queue by first
-      // shifting all elements one position left
-      // from index where the highest priority item was found
-      for (int i = indexPos; i < idx; i++)
-	{
-	  pqVal[i] = pqVal[i + 1];
-	  pqPriority[i] = pqPriority[i + 1];
-	}
-
-      // reduce size of priority queue by 1
-      idx--;
-    }
-}
-
-void display ()
-{
-  for (int i = 0; i <= idx; i++)
-    {
-      printf ("(%d, %d)\n", pqVal[i], pqPriority[i]);
-    }
-}
-
-// Driver Code
-int main ()
-{
-  // To enqueue items as per priority
-  enqueue (5, 1);
-  enqueue (10, 3);
-  enqueue (15, 4);
-  enqueue (20, 5);
-  enqueue (500, 2);
-
-  printf ("Before Dequeue : \n");
-  display ();
-
-  // Dequeue the top element
-  dequeue ();			// 20 dequeued
-  dequeue ();			// 15 dequeued
-
-  printf ("\nAfter Dequeue : \n");
-  display ();
-
-  return 0;
+    printf("\n") ; 
+  }  
 }

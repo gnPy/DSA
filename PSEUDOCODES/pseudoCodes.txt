@@ -1218,4 +1218,285 @@ PROCEDURE main()
 END PROCEDURE
 
 #################################################################################################
+LINKED LIST OPERAIONS 
+
+STRUCT node
+    DECLARE data
+    DECLARE next
+END STRUCT
+
+DECLARE head = NULL
+
+PROCEDURE create()
+    DECLARE temp
+    DECLARE n
+
+    PRINT "ENTER THE NUMBER OF ELEMENTS : "
+    READ n
+
+    FOR i = 0 TO n - 1
+        DECLARE ptr
+        ALLOCATE ptr
+
+        PRINT "ENTER THE ELEMENTS : "
+        READ ptr.data
+
+        IF i == 0 THEN
+            SET head = ptr
+            SET ptr.next = NULL
+            SET temp = ptr
+        ELSE
+            SET temp.next = ptr
+            SET ptr.next = NULL
+            SET temp = ptr
+        END IF
+    END FOR
+END PROCEDURE
+
+PROCEDURE display()
+    DECLARE ptr
+    SET ptr = head
+
+    WHILE ptr != NULL
+        PRINT ptr.data + " "
+        SET ptr = ptr.next
+    END WHILE
+
+    PRINT "\n"
+END PROCEDURE
+
+PROCEDURE insertFront()
+    DECLARE ptr
+    ALLOCATE ptr
+
+    PRINT "ENTER THE ELEMENT TO BE INSERTED : "
+    READ ptr.data
+
+    SET ptr.next = head
+    SET head = ptr
+END PROCEDURE
+
+PROCEDURE insertBack()
+    DECLARE ptr
+    ALLOCATE ptr
+
+    PRINT "ENTER THE ELEMENT TO BE INSERTED : "
+    READ ptr.data
+
+    IF head == NULL THEN
+        SET head = ptr
+        SET ptr.next = NULL
+    ELSE
+        DECLARE temp
+        SET temp = head
+
+        WHILE temp.next != NULL
+            SET temp = temp.next
+        END WHILE
+
+        SET temp.next = ptr
+        SET ptr.next = NULL
+    END IF
+END PROCEDURE
+
+PROCEDURE insertBetween()
+    DECLARE ptr, temp
+    DECLARE i, pos
+    ALLOCATE ptr
+
+    PRINT "ENTER THE NUMBER TO BE INSERTED : "
+    READ ptr.data
+
+    PRINT "ENTER THE POSITION ON WHICH TO BE INSERTED :"
+    READ pos
+
+    SET temp = head
+    SET i = 0
+
+    WHILE temp != NULL AND i < pos - 1
+        SET temp = temp.next
+        INCREMENT i
+    END WHILE
+
+    IF temp == NULL THEN
+        PRINT "INVALID POSITION"
+    ELSE
+        SET ptr.next = temp.next
+        SET temp.next = ptr
+    END IF
+END PROCEDURE
+
+PROCEDURE deleteFront()
+    IF head == NULL THEN
+        PRINT "LIST IS EMPTY"
+    ELSE
+        DECLARE temp
+        SET temp = head
+        SET head = head.next
+        DEALLOCATE temp
+    END IF
+END PROCEDURE
+
+PROCEDURE deleteBack()
+    IF head == NULL THEN
+        PRINT "LIST IS EMPTY"
+    ELSE IF head.next == NULL THEN
+        DEALLOCATE head
+        SET head = NULL
+    ELSE
+        DECLARE temp
+        SET temp = head
+
+        WHILE temp.next.next != NULL
+            SET temp = temp.next
+        END WHILE
+
+        DEALLOCATE temp.next
+        SET temp.next = NULL
+    END IF
+END PROCEDURE
+
+PROCEDURE search()
+    DECLARE x, i
+    DECLARE temp
+    SET temp = head
+
+    PRINT "ENTER THE ELEMENT TO BE SEARCHED : "
+    READ x
+
+    SET i = 0
+
+    WHILE temp != NULL
+        IF temp.data == x THEN
+            PRINT "POSITION IS : " + (i + 1)
+            BREAK
+        END IF
+
+        INCREMENT i
+        SET temp = temp.next
+    END WHILE
+
+    IF temp == NULL THEN
+        PRINT "ELEMENT NOT FOUND."
+    END IF
+END PROCEDURE
+
+PROCEDURE menu()
+    PRINT "1. CREATE"
+    PRINT "2. DISPLAY"
+    PRINT "3. INSERT AT FRONT"
+    PRINT "4. INSERT AT BACK"
+    PRINT "5. INSERT BETWEEN"
+    PRINT "6. DELETE FRONT"
+    PRINT "7. DELETE BACK"
+    PRINT "8. SEARCH"
+    PRINT "9. EXIT"
+END PROCEDURE
+
+PROCEDURE main()
+    DECLARE choice
+    CALL menu()
+
+    WHILE TRUE
+        PRINT "ENTER YOUR CHOICE : "
+        READ choice
+
+        SWITCH choice
+            CASE 1
+                CALL create()
+                BREAK
+            CASE 2
+                CALL display()
+                BREAK
+            CASE 3
+                CALL insertFront()
+                BREAK
+            CASE 4
+                CALL insertBack()
+                BREAK
+            CASE 5
+                CALL insertBetween()
+                BREAK
+            CASE 6
+                CALL deleteFront()
+                BREAK
+            CASE 7
+                CALL deleteBack()
+                BREAK
+            CASE 8
+                CALL search()
+                BREAK
+            CASE 9
+                EXIT
+                BREAK
+            DEFAULT
+                PRINT "INVALID CHOICE"
+                BREAK
+        END SWITCH
+
+        PRINT "\n"
+    END WHILE
+
+    RETURN 0
+END PROCEDURE
+#################################################################################################
+POLYNIOMIAL REPRESENTATION USING LINKED LIST
+
+STRUCT node
+    DECLARE data
+    DECLARE next
+END STRUCT
+
+PROCEDURE createPoly(head)
+    DECLARE temp, current, n
+    SET current = head
+
+    PRINT "ENTER NUMBER OF TERMS IN POLYNOMIAL : "
+    READ n
+
+    FOR i = 0 TO n-1
+        ALLOCATE temp
+        PRINT "ENTER COEFFICIENT AND EXPONENT OF TERM " + (i+1) + " : "
+        READ temp.coeff, temp.exp
+        SET temp.next = NULL
+
+        IF current == NULL THEN
+            SET current = temp
+            SET head = current
+        ELSE
+            SET current.next = temp
+            SET current = temp
+        END IF
+    END FOR
+
+    RETURN head
+END PROCEDURE
+
+PROCEDURE displayPoly(head)
+    DECLARE temp
+    SET temp = head
+
+    WHILE temp != NULL
+        IF temp.next != NULL THEN
+            PRINT temp.coeff + "x^" + temp.exp + " + "
+        ELSE
+            PRINT temp.coeff + "x^" + temp.exp
+        END IF
+
+        SET temp = temp.next
+    END WHILE
+
+    PRINT "\n"
+END PROCEDURE
+
+PROCEDURE main()
+    DECLARE head
+    SET head = NULL
+
+    SET head = createPoly(head)
+    CALL displayPoly(head)
+END PROCEDURE
+#################################################################################################
+POLYNOMIAL ADDITION LINKED LIST
+
 

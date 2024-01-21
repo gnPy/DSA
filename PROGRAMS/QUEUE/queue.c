@@ -29,7 +29,7 @@ void dequeue(struct queue *q){
 		 printf("THE QUEUE IS EMPTY.\n") ;  	 		 
 		}
 	else{
-		q->arr[++(q->front)];
+		++(q->front);
 		}
 	}
 
