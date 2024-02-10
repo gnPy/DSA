@@ -54,7 +54,7 @@ struct node *swap(struct node *head){
         temp = temp->next;
     }
     Y = temp;
-    
+
     if(prevX != NULL){
         prevX->next = Y;
     }
@@ -73,9 +73,9 @@ struct node *swap(struct node *head){
     return head;
 }
 
-void main(){
-    head = create(head) ; 
+void main{
+    head = create(head);
     display(head);
-    head = swap(head) ; 
+    head = swap(head);
     display(head);
 }
