@@ -73,7 +73,7 @@ struct node *swap(struct node *head){
     return head;
 }
 
-void main{
+void main(){
     head = create(head);
     display(head);
     head = swap(head);
