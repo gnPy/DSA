@@ -41,7 +41,6 @@ struct node* reverse(struct node* alpha , struct node* beta){
         beta->next = alpha ; 
         return head ; 
     }
-
 }
 
 void display(struct node* head){
