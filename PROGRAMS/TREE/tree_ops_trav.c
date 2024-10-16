@@ -52,18 +52,6 @@ void postorder(struct node *head){
     printf("%d " , head->val) ; 
 }
 
-int noOfLeafNodes(struct node *head){
-    if(head == NULL){
-        return 0; 
-    }
-    else if ( head->rightchild == NULL && head->leftchild == NULL){
-        return 1 ; 
-    }
-    else{
-        return noOfLeafNodes(head->leftchild) + noOfLeafNodes(head->rightchild) ; 
-    }
-}
-
 void main(){
     int arr[] = {5,3,7,2,4,6,8, 9} ;
     for( int i = 0 ; i < 8; i++){
