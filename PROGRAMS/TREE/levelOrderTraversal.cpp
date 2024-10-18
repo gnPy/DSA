@@ -29,6 +29,7 @@ struct node* arrayToTree(vector<int> tree){
 }
 
 void LOT(struct node* head){
+    cout << "LEVELL ORDER TRAVERSAL IS : " ; 
     queue<struct node*>levels ; 
     levels.push(head) ; 
     while(!levels.empty()){
@@ -58,6 +59,17 @@ vector<int> printTree(struct node* head){
             levels.push(temp->right) ; 
         }
     }
+    cout << "TREE IS : " << endl ; 
+    int i = 0 , size = 1 ,l = 1;  
+    while(size < tree.size()){
+        cout << "Level " << l << " : " ; 
+        for(int k = 0 ; k < size ; ++k){
+            cout << tree[i++] << " " ; 
+         }
+         cout << endl ; 
+         size += size ; 
+         l++ ; 
+    }
     return tree ; 
 }
 
@@ -71,9 +83,5 @@ int main(){
     struct node* head = arrayToTree(tree) ; 
     LOT(head) ; 
     tree = printTree(head) ; 
-    for(int i : tree){
-        cout << i << " " ; 
-    }
-    cout << endl ; 
 }
 
